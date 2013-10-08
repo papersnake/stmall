@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<!--
+		Charisma v1.0.0
+
+		Copyright 2012 Muhammad Usman
+		Licensed under the Apache License v2.0
+		http://www.apache.org/licenses/LICENSE-2.0
+
+		http://usman.it
+		http://twitter.com/halalit_usman
+	-->
+	<meta charset="utf-8">
+	<title>STMALL 管理平台</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Charisma, a fully featured, responsive, HTML5, Bootstrap admin template.">
+	<meta name="author" content="papersnake">
+
+	<!-- The styles -->
+	<link id="bs-css" href="__CSS__/bootstrap-cerulean.css" rel="stylesheet">
+	<style type="text/css">
+	  body {
+		padding-bottom: 40px;
+	  }
+	  .sidebar-nav {
+		padding: 9px 0;
+	  }
+	</style>
+	<link href="__CSS__/bootstrap-responsive.css" rel="stylesheet">
+	<link href="__CSS__/charisma-app.css" rel="stylesheet">
+	<link href="__CSS__/main.css" rel="stylesheet">
+	<link href="__CSS__/jquery-ui-1.8.21.custom.css" rel="stylesheet">
+	<link href='__CSS__/fullcalendar.css' rel='stylesheet'>
+	<link href='__CSS__/fullcalendar.print.css' rel='stylesheet'  media='print'>
+	<link href='__CSS__/chosen.css' rel='stylesheet'>
+	<link href='__CSS__/uniform.default.css' rel='stylesheet'>
+	<link href='__CSS__/colorbox.css' rel='stylesheet'>
+	<link href='__CSS__/jquery.cleditor.css' rel='stylesheet'>
+	<link href='__CSS__/jquery.noty.css' rel='stylesheet'>
+	<link href='__CSS__/noty_theme_default.css' rel='stylesheet'>
+	<link href='__CSS__/elfinder.min.css' rel='stylesheet'>
+	<link href='__CSS__/elfinder.theme.css' rel='stylesheet'>
+	<link href='__CSS__/jquery.iphone.toggle.css' rel='stylesheet'>
+	<link href='__CSS__/opa-icons.css' rel='stylesheet'>
+	<link href='__CSS__/uploadify.css' rel='stylesheet'>
+
+	<!-- The HTML5 shim, for IE6-8 support of HTML5 elements -->
+	<!--[if lt IE 9]>
+	  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<!-- The fav icon -->
+	<link rel="shortcut icon" href="__IMG__/favicon.ico">
+		
+</head>
+
+<body>
+		<div class="container-fluid">
+		<div class="row-fluid">
+		
+			<div class="row-fluid">
+				<div class="span12 center login-header">
+					<h2>STMALL 管理平台</h2>
+					<h3>吴江大润发厍星店商品在线管理平台</h3>
+				</div><!--/span-->
+			</div><!--/row-->
+			
+			<div class="row-fluid">
+				<div class="well span5 center login-box">
+					<div class="alert alert-info">
+						请用您的用户名和密码登录.
+					</div>
+					<div class="alert alert-error" style="display: none">
+						<button type="button" class="close" data-dismiss="alert">×</button>
+						密码错误
+					</div>
+					<form class="form-horizontal" action="{:U('login')}" method="post">
+						<fieldset>
+							<div class="input-prepend" title="Username" data-rel="tooltip">
+								<span class="add-on"><i class="icon-user"></i></span><input autofocus class="input-large span10" name="username" id="username" type="text" value="admin" />
+							</div>
+							<div class="clearfix"></div>
+
+							<div class="input-prepend input-append" title="Password" data-rel="tooltip">
+								<span class="add-on"><i class="icon-lock"></i></span><input class="input-large span10" name="password" id="password" type="password" value="24976904" />
+							</div>
+							<div class="clearfix"></div>
+
+							<div class="input-prepend input-append" title="verify" data-rel="tooltip">
+								<span class="add-on"><i class="icon-pencil"></i></span><input class="span5" name="verify" id="verify" type="text" value="" />
+								<span class="add-on"><a class="reloadverify" href="javascript:void(0)">换一张?</a></span>
+
+							</div>
+							<div class="clearfix"></div>
+
+							<div class="input-prepend">
+							<img class="verifyimg" src="{:U('Public/verify')}">
+							<div class="clearfix"></div>
+	
+							<div class="input-prepend">
+							<label class="remember" for="remember"><input type="checkbox" id="remember" />下一次自动登录</label>
+							</div>
+							<div class="clearfix"></div>
+
+							<p class="center span5">
+							<button type="submit" class="btn btn-primary">登录</button>
+							</p>
+						</fieldset>
+					</form>
+				</div><!--/span-->
+			</div><!--/row-->
+				</div><!--/fluid-row-->
+		
+	</div><!--/.fluid-container-->
+	<div class="modal hide fade" id="myModal" style="display:none;">
+		<img src="__IMG__/ajax-loaders/ajax-loader-7.gif" title="__IMG__/ajax-loaders/ajax-loader-7.gif">
+	</div>
+	<!-- external javascript
+	================================================== -->
+	<!-- Placed at the end of the document so the pages load faster -->
+
+	<!-- jQuery -->
+	<script src="__JS__/jquery-1.7.2.min.js"></script>
+	<!-- jQuery UI -->
+	<script src="__JS__/jquery-ui-1.8.21.custom.min.js"></script>
+	<!-- transition / effect library -->
+	<script src="__JS__/bootstrap-transition.js"></script>
+	<!-- alert enhancer library -->
+	<script src="__JS__/bootstrap-alert.js"></script>
+	<!-- modal / dialog library -->
+	<script src="__JS__/bootstrap-modal.js"></script>
+	<!-- custom dropdown library -->
+	<script src="__JS__/bootstrap-dropdown.js"></script>
+	<!-- scrolspy library -->
+	<script src="__JS__/bootstrap-scrollspy.js"></script>
+	<!-- library for creating tabs -->
+	<script src="__JS__/bootstrap-tab.js"></script>
+	<!-- library for advanced tooltip -->
+	<script src="__JS__/bootstrap-tooltip.js"></script>
+	<!-- popover effect library -->
+	<script src="__JS__/bootstrap-popover.js"></script>
+	<!-- button enhancer library -->
+	<script src="__JS__/bootstrap-button.js"></script>
+	<!-- accordion library (optional, not used in demo) -->
+	<script src="__JS__/bootstrap-collapse.js"></script>
+	<!-- carousel slideshow library (optional, not used in demo) -->
+	<script src="__JS__/bootstrap-carousel.js"></script>
+	<!-- autocomplete library -->
+	<script src="__JS__/bootstrap-typeahead.js"></script>
+	<!-- tour library -->
+	<script src="__JS__/bootstrap-tour.js"></script>
+	<!-- library for cookie management -->
+	<script src="__JS__/jquery.cookie.js"></script>
+	<!-- calander plugin -->
+	<script src='__JS__/fullcalendar.min.js'></script>
+	<!-- data table plugin -->
+	<script src='__JS__/jquery.dataTables.min.js'></script>
+
+	<!-- chart libraries start -->
+	<script src="__JS__/excanvas.js"></script>
+	<script src="__JS__/jquery.flot.min.js"></script>
+	<script src="__JS__/jquery.flot.pie.min.js"></script>
+	<script src="__JS__/jquery.flot.stack.js"></script>
+	<script src="__JS__/jquery.flot.resize.min.js"></script>
+	<!-- chart libraries end -->
+
+	<!-- select or dropdown enhancer -->
+	<script src="__JS__/jquery.chosen.min.js"></script>
+	<!-- checkbox, radio, and file input styler -->
+	<script src="__JS__/jquery.uniform.min.js"></script>
+	<!-- plugin for gallery image view -->
+	<script src="__JS__/jquery.colorbox.min.js"></script>
+	<!-- rich text editor library -->
+	<script src="__JS__/jquery.cleditor.min.js"></script>
+	<!-- notification plugin -->
+	<script src="__JS__/jquery.noty.js"></script>
+	<!-- file manager library -->
+	<script src="__JS__/jquery.elfinder.min.js"></script>
+	<!-- star rating plugin -->
+	<script src="__JS__/jquery.raty.min.js"></script>
+	<!-- for iOS style toggle switch -->
+	<script src="__JS__/jquery.iphone.toggle.js"></script>
+	<!-- autogrowing textarea plugin -->
+	<script src="__JS__/jquery.autogrow-textarea.js"></script>
+	<!-- multiple file upload plugin -->
+	<script src="__JS__/jquery.uploadify-3.1.min.js"></script>
+	<!-- history.js for cross-browser state change on ajax -->
+	<script src="__JS__/jquery.history.js"></script>
+	<!-- application script for Charisma demo -->
+	<script src="__JS__/charisma.js"></script>
+	
+	<script type="text/javascript">
+	$("form").submit(function() {
+		$("#myModal").modal('show').css({
+			width:'auto',
+			'margin-left':function(){
+				return -($(this).width()/2);
+			}
+		});
+		var self = $(this);
+		$.post(self.attr("action"),self.serialize(),success,"json");
+		return false
+
+		function success(data){
+			if(data.status){
+				window.location.href = data.url;
+			} else {
+				$("#myModal").modal('hide');
+				$(".login-box").prepend('<div class="alert alert-error" ><button type="button" class="close" data-dismiss="alert">×</button>'+data.info+'</div>')
+				$(".reloadverify").click();
+			}
+		}
+	});
+
+	$(function(){
+		var verifyimg = $(".verifyimg").attr("src");
+		$(".reloadverify").click(function(){
+			if(verifyimg.indexOf('?')>0){
+				$(".verifyimg").attr("src", verifyimg+'&random'+Math.random());
+			}else{
+				$(".verifyimg").attr("src", verifyimg.replace(/\?.*$/,'')+'?'+Math.random());
+			}
+		});
+	});
+	</script>
+		
+</body>
+</html>
