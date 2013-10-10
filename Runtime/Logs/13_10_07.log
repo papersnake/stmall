@@ -1,6 +1,0 @@
-[ 2013-10-07T21:02:12+08:00 ] 127.0.0.1 /index.php/Admin/Index/index.html
-ERR: 模板不存在:./Application/Admin/View/Index/index.html
-
-[ 2013-10-07T21:05:22+08:00 ] 127.0.0.1 /index.php/Admin/
-ERR: 模板不存在:./Application/Admin/View/Index/index.html
-

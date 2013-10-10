@@ -10,6 +10,7 @@ return array(
 			'__JS__'     => __ROOT__ . '/Public/' . MODULE_NAME . '/js',
 		),
 
-	'SESSION_PREFIX'	=> 'stmall_admin',
-	'COOKIE_PREFIX'		=> 'stmall_admin_',
+	'SESSION_PREFIX' => 'stmall_admin',
+	'COOKIE_PREFIX'  => 'stmall_admin_',
+	'LIST_ROWS'      =>20,
 );
