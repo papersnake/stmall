@@ -12,5 +12,5 @@ return array(
 
 	'SESSION_PREFIX' => 'stmall_admin',
 	'COOKIE_PREFIX'  => 'stmall_admin_',
-	'LIST_ROWS'      =>20,
+	'LIST_ROWS'      => 15,
 );

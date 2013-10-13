@@ -3,8 +3,8 @@
 <block name="body">
 <div class="row-fluid sortable">
 				<div class="box span12">
-					<div class="box-content">
-						<ul class="nav nav-pills">
+					<div class="navbar">
+						<ul class="nav nav-pills" id="menutree">
 							<li class="dropdown"><a class="btn btn-large btn-primary dropdown-toggle" data-toggle="dropdown" href="#">食品<b class="caret"></b></a>
 							<ul class="dropdown-menu">
             					<li><a href="#">Login</a></li>
@@ -60,4 +60,21 @@
 				</div><!--/span-->
 			
 			</div><!--/row-->
+</block>
+<block name="script">
+<script type="text/javascript">
+$(function(){
+	$.ajax({
+		url:"http://www.test.com/index.php/Admin/Good/json",
+		dataType:"json",
+		type:"get",
+		success:function(data,status,xhr) {
+			$.each(data.childs,function(index,item){
+				var menu = $("#menutree");
+				menu.append(item.categoryName);
+			});
+		}
+	});
+} );
+</script>
 </block>
