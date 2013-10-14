@@ -59,7 +59,8 @@
 $(function(){
 	var targetUrl = '{:U('index','','')}';
 	$.ajax({
-		url:"http://www.test.com/index.php/Admin/Good/json",
+		//url:"http://www.test.com/index.php/Admin/Good/json",
+		url:"{:U('json')}",
 		dataType:"json",
 		type:"get",
 		success:function(data,status,xhr) {
