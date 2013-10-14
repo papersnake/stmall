@@ -23,13 +23,18 @@ class AdminController extends Controller {
 	protected function lists($model,$where=array(),$order='',$base=array('status'=>array('egt',0)),$field=true){
 		$options = array();                                          
 		$REQUEST = (array)I('request.');                
+		//dump($where);
+		//dump($order);
+		//dump($base);
 		//dump($REQUEST);
 		if(is_string($model)){
 			$model = M($model);
 		}
 
-		$OPT =new \ReflectionProperty($model,'options');
+		$OPT = new \ReflectionProperty($model,'options');
 		$OPT->setAccessible(true);
+
+		//dump($OPT);
 
 		$pk = $model->getPk();
 
@@ -40,7 +45,7 @@ class AdminController extends Controller {
 		}elseif( $order==='' && empty($options['order']) && !empty($pk) ){
 			$options['order'] = $pk.' desc';
 		}elseif($order){
-			$options = $order;
+			$options['order'] = $order;
 		}
 		unset($REQUEST['_order'],$REQUEST['_field']);
 
@@ -51,8 +56,8 @@ class AdminController extends Controller {
 				return true;
 			}
 		});
-
-		if(empty($options['where'])){
+		//dump($options);
+		if( empty($options['where'] )){
 			unset($options['where']);
 		}
 

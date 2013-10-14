@@ -1,28 +1,20 @@
 <extend name="Public/base" />
 
 <block name="body">
-<div class="row-fluid sortable">
+<div class="row-fluid">
 				<div class="box span12">
 					<div class="navbar">
-						<ul class="nav nav-pills" id="menutree">
-							<li class="dropdown"><a class="btn btn-large btn-primary dropdown-toggle" data-toggle="dropdown" href="#">食品<b class="caret"></b></a>
-							<ul class="dropdown-menu">
-            					<li><a href="#">Login</a></li>
-            				<li class="dropdown-submenu">
-                				<a tabindex="-1" href="12.html">More options</a>
-                				<ul class="dropdown-menu">
-				                    <li class="dropdown-submenu"><a tabindex="-1" href="20.html">Second level</a>
-										<ul class="dropdown-menu"><li><a tabindex="-1" href="#">Three level</a></li></ul>
-				                    </li>
-				                    <li><a href="#">Second level</a></li>
-				                    <li><a href="#">Second level</a></li>
-                				</ul>
-           					 </li>
-            				<li><a href="#">Logout</a></li>
-							</ul>
-							</li>
-							<li><a href="#">百货</a></li>
-						</ul>
+						<div class="navbar-inner">
+							<div class="container">
+								<div class="nav-collapse collapse navbar-responsive-collapse">
+									<ul class="nav nav-pills" id="menutree">
+									</ul>
+									<form class="navbar-search pull-right" action="#">
+									 	<input type="text" name="query" class="search-query" placeholder="Search">
+									</form>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 </div>
@@ -62,19 +54,61 @@
 			</div><!--/row-->
 </block>
 <block name="script">
+<script src="__JS__/bootstrap-exdropdown.js"></script>
 <script type="text/javascript">
 $(function(){
+	var targetUrl = '{:U('index','','')}';
 	$.ajax({
 		url:"http://www.test.com/index.php/Admin/Good/json",
 		dataType:"json",
 		type:"get",
 		success:function(data,status,xhr) {
-			$.each(data.childs,function(index,item){
-				var menu = $("#menutree");
-				menu.append(item.categoryName);
-			});
+			var menu = $("#menutree");
+			makemenu(data,menu);
 		}
 	});
+
+	function makemenu(data,node){
+		//var menu = $("#menutree");
+			$.each(data.childs,function(index,item){
+				var li = $("<li/>").appendTo(node);
+				
+				var a=$("<a />",{href:targetUrl+"/cate_id/"+item.categoryId,text:item.categoryName});
+				if(item.hasChild){
+					a.attr({
+						'data-toggle': 'exdropdown',
+					});
+					a.addClass('dropdown-toggle');
+					a.append('<b class="caret">');
+				}
+				li.append(a);
+				if(item.hasChild)
+				{
+					li.addClass('dropdown');
+					makesubmenu(item,li);
+				}
+				//menu.append(item.categoryName);
+			});
+	}
+
+	function makesubmenu(data,node){
+		var ul = $('<ul/>').appendTo(node);
+		ul.addClass('dropdown-menu');
+		$.each(data.childs,function(index,item){
+			var li =$('<li/>');
+			var a  =$('<a/>');
+			a.attr('href',targetUrl+"/cate_id/"+item.categoryId);
+			a.append(item.categoryName);
+			if(item.hasChild){
+				a.attr('tabindex', '-1');
+				
+				li.addClass('dropdown-submenu');
+				makesubmenu(item,li);
+			}
+			li.append(a);
+			ul.append(li);
+		});
+	}
 } );
 </script>
 </block>
