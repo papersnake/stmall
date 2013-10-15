@@ -2,7 +2,7 @@
 
 namespace Admin\Model;
 use Think\Model;
-use ORG\Util\Debug;
+//use ORG\Util\Debug;
 
 class UserModel extends Model {
 
