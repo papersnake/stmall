@@ -15,6 +15,7 @@ class GoodController extends AdminController {
 		if( isset($query) )
 		{
 			unset($map['category_id']);
+			//$query = iconv("gb2312","utf-8",$query);
 			$map['_string'] = "CONCAT(good_name,good_id,barcode,good_spec) like '%".$query."%'";
 		}
 		$list       = $this->lists($Good,$map,'id DESC');

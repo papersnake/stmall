@@ -11,7 +11,7 @@ class UserModel extends Model {
 		$map['username'] = $username;
 		$user            = $this->where($map)->find();
 		
-		trace('pass_md5',$pass_md5);
+		//trace('pass_md5',$pass_md5);
 		if(is_array($user) && $user['status'] == 1) {
 			if(password_md5($password,C('DATA_AUTH_KEY')) === $user['password']) {
 				$this->autologin($user);
