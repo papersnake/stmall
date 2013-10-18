@@ -1,0 +1,101 @@
+<extend name="Public/base" />
+
+<block name="body">
+<div class="row-fluid sortable">		
+				<div class="box span12">
+					<div class="box-header well" data-original-title>
+						<h2><i class="icon-barcode"></i> 分类管理</h2>
+						<div class="box-icon">
+							<a href="#" class="btn btn-setting btn-round"><i class="icon-cog"></i></a>
+							<a href="#" class="btn btn-minimize btn-round"><i class="icon-chevron-up"></i></a>
+							<a href="#" class="btn btn-close btn-round"><i class="icon-remove"></i></a>
+						</div>
+					</div>
+					<div class="box-content">
+						<div class="dd" id="nestable">
+							<ol class="dd-list buttons" id="cate_list">
+											
+							</ol>
+						</div>
+					</div>
+				</div>
+</div>
+</block>
+<block name="script">
+<script src="__JS__/jquery.nestable.js"></script>
+<script type="text/javascript">
+$(document).ready(function()
+{
+	
+
+	$.ajax({
+		//url:"http://www.test.com/index.php/Admin/Good/json",
+		url:"{:U('Category/json')}",
+		dataType:"json",
+		type:"get",
+		success:function(data,status,xhr) {
+			var root = $("#cate_list");
+			maketable(data,root);
+			$('#nestable').nestable();
+
+			$('.dd').nestable('collapseAll');
+		}
+	});
+
+	function maketable(data,node){
+		//var menu = $("#menutree");
+			$.each(data.childs,function(index,item){
+				//var ol = $("<ol/>").appendTo(node);
+				//ol.addClass('dd-list')
+				var li = $('<li/>').appendTo(node);
+				li.addClass('dd-item');
+				li.attr('data-id', item.categoryId);
+				//ol.append(li);
+				li.append('<a class="btn" href="1">禁用</a>')
+				var div=$('<div />');
+
+				div.addClass('dd-handle');
+				div.append(item.categoryName);
+				
+
+				li.append(div);
+				//menu.append(item.categoryName);
+				if(item.hasChild)
+				{
+					makesubmenu(item,li);	
+				}
+			});
+	}
+
+	function makesubmenu(data,node){
+		var ol = $('<ol/>');
+		ol.addClass('dd-list');
+		$.each(data.childs,function(index,item){
+			var li =$('<li/>');
+			li.addClass('dd-item');
+			li.attr('data-id', item.categoryId);
+			var a  =$('<a class="btn" href="#">禁用</a>');
+			//a.attr('href',targetUrl+"/cate_id/"+item.categoryId);
+			//a.append(item.categoryName);
+			li.append(a);
+			var div=$('<div />');
+
+			div.addClass('dd-handle');
+			div.append(item.categoryName);
+			li.append(div);
+			ol.append(li);
+			if(item.hasChild){
+				//a.attr('tabindex', '-1');
+				
+				//li.addClass('dropdown-submenu');
+				makesubmenu(item,li);
+			}
+			
+		});
+		node.append(ol);
+	}
+
+
+});
+</script>
+</block>
