@@ -41,7 +41,11 @@
 								'good_pur_price' => '进价',
 								'good_belong'    => '供应商',
 								'good_num'       => '库存',
-								'操作'             =>array(),
+								'操作'             => array(
+										'编辑'=>array( 'href' => 'Article/edit?cate_id=$category_id&id=$id',),
+										'禁用'=>array( 'href' => 'Article/setStatus?status=0&ids=$id', 'class'=>'btn btn-danger', 'condition'=>'$status==1',),
+										'启用'=>array( 'href' => 'Article/setStatus?status=1&ids=$id', 'class'=>'btn btn-danger', 'condition'=>'$status==0',),
+									),
 							);
 						echo $_talellist = $__controller__->tableList($_list,$thead);
 						?> 
@@ -60,7 +64,7 @@ $(function(){
 	var targetUrl = '{:U('index','','')}';
 	$.ajax({
 		//url:"http://www.test.com/index.php/Admin/Good/json",
-		url:"{:U('json')}",
+		url:"{:U('Category/json')}",
 		dataType:"json",
 		type:"get",
 		success:function(data,status,xhr) {
