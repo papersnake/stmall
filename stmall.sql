@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50612
 File Encoding         : 65001
 
-Date: 2013-10-14 18:06:08
+Date: 2013-10-19 10:46:39
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -32,7 +32,9 @@ CREATE TABLE `stmall_good` (
   `good_belong` varchar(30) DEFAULT NULL,
   `good_num` int(11) DEFAULT NULL,
   `status` tinyint(4) NOT NULL DEFAULT '1',
-  PRIMARY KEY (`id`,`good_id`)
+  PRIMARY KEY (`id`,`good_id`),
+  KEY `idx_name` (`good_name`) USING BTREE,
+  KEY `idx_category_status` (`category_id`,`status`) USING BTREE
 ) ENGINE=MyISAM AUTO_INCREMENT=22223 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -22457,7 +22459,7 @@ CREATE TABLE `stmall_user` (
 -- ----------------------------
 -- Records of stmall_user
 -- ----------------------------
-INSERT INTO `stmall_user` VALUES ('3', 'admin', '8acdb911440afa21b4c8834be47bdb88', '', '', '0', '0', '1381666697', '2130706433', '0', '1');
+INSERT INTO `stmall_user` VALUES ('3', 'admin', '8acdb911440afa21b4c8834be47bdb88', '', '', '0', '0', '1381826865', '2130706433', '0', '1');
 
 -- ----------------------------
 -- Table structure for `think_data`
