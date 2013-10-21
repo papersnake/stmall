@@ -8,8 +8,8 @@ return array(
 			'__IMG__'     => __ROOT__ . '/Public/' . MODULE_NAME . '/images',
 			'__CSS__'     => __ROOT__ . '/Public/' . MODULE_NAME . '/css',
 			'__JS__'      => __ROOT__ . '/Public/' . MODULE_NAME . '/js',
-			'__PLUGINS__' => __ROOT__ . '/public/' . MODULE_NAME . '/plugins',
-			'__FONTS__'   => __ROOT__ . '/public/' . MODULE_NAME . '/fonts',
+			'__PLUGINS__' => __ROOT__ . '/Public/' . MODULE_NAME . '/plugins',
+			'__FONTS__'   => __ROOT__ . '/Public/' . MODULE_NAME . '/fonts',
 		),
 
 	'SESSION_PREFIX' => 'stmall_admin',
