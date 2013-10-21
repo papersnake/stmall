@@ -36,7 +36,7 @@ a, a:focus, a:hover, a:active {
 }
 
 h1, h2, h3 {
-	font-family: 'Raleway', sans-serif;
+	font-family: 'Raleway', sans-serif, STXihei,"华文细黑","Mircosoft YaHei","微软雅黑",SimSun,"宋体";
 }
 /* ---------------------------------------------------------------------- */
 /*	Forms
@@ -377,7 +377,7 @@ a.bricky:hover {
 .navbar > .container .navbar-brand, .logo {
 	padding: 14px 10px 12px;
 	margin-left: 0;
-	font-family: 'Raleway', sans-serif;
+	font-family: 'Raleway', sans-serif, STXihei,"华文细黑","Mircosoft YaHei","微软雅黑",SimSun,"宋体";
 	font-size: 25px;
 }
 .navbar > .container .navbar-brand i, .logo i {
@@ -583,7 +583,7 @@ li.dropdown.current-user .dropdown-menu li a {
 /*	Buttons
  /* ---------------------------------------------------------------------- */
 .btn {
-	font-family: 'Open Sans';
+	font-family: 'Open Sans', STXihei,"华文细黑","Mircosoft YaHei","微软雅黑",SimSun,"宋体";
 }
 .btn-teal {
 	background-color: #569099;
@@ -2003,7 +2003,7 @@ span.star:before {
 	margin: 20px 0 20px;
 }
 .page-header h1 {
-	font-family: 'Raleway', sans-serif;
+	font-family: 'Raleway', sans-serif, STXihei,"华文细黑","Mircosoft YaHei","微软雅黑",SimSun,"宋体";
 	font-weight: 200;
 	letter-spacing: -1px;
 	margin: 0 0 15px;
@@ -2916,7 +2916,7 @@ body.error-full-page {
 	text-align: center;
 }
 #inline-headerLeft h2 {
-	font-family: "Arial Black", arial-black;
+	font-family: "Arial Black", arial-black, STXihei,"华文细黑","Mircosoft YaHei","微软雅黑",SimSun,"宋体";
 	font-size: 52px;
 	line-height: 1.1em;
 	text-transform: uppercase;
@@ -2944,7 +2944,7 @@ body.error-full-page {
 	padding-top: 20px;
 }
 #inline-columns blockquote {
-	font-family: "Times New Roman", Times, Georgia, serif;
+	font-family: "Times New Roman", Times, Georgia, serif, STXihei,"华文细黑","Mircosoft YaHei","微软雅黑",SimSun,"宋体";
 	font-size: 2em;
 	font-style: italic;
 	margin: 30px 40px;
@@ -2962,7 +2962,7 @@ body.error-full-page {
 	width: 35px;
 	clear: both;
 	display: block;
-	font-family: "Times New Roman", Times, Georgia, serif;
+	font-family: "Times New Roman", Times, Georgia, serif, STXihei,"华文细黑","Mircosoft YaHei","微软雅黑",SimSun,"宋体";
 	font-weight: bold;
 	position: absolute;
 	text-align: center;
@@ -3010,7 +3010,7 @@ body.error-full-page {
 /*	Timeline
  /* ---------------------------------------------------------------------- */
 div.timeline {
-	font-family: Arial;
+	font-family: Arial, STXihei,"华文细黑","Mircosoft YaHei","微软雅黑",SimSun,"宋体";
 	margin: 0 auto;
 	overflow: hidden;
 	position: relative;

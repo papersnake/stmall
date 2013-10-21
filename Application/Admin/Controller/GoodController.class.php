@@ -5,9 +5,9 @@ namespace Admin\Controller;
 class GoodController extends AdminController {
 
 	public function index($cate_id=null, $query=null){
-
-		$Good       = M('Good');
-		$map		= array();
+		$this->title = '产品管理';
+		$Good        = M('Good');
+		$map         = array();
 		if( $cate_id !== null ){
 			$map['category_id'] = array('like', $cate_id.'%');
 		}

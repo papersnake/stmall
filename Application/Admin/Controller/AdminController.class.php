@@ -5,7 +5,6 @@ use Think\Controller;
 
 class AdminController extends Controller {
 
-
 /**
  * [_initialize description]
  * @return [type] [description]
@@ -16,7 +15,6 @@ class AdminController extends Controller {
 		if( !UID ) {
 			$this->redirect('Public/login');
 		}
-
 		$this->assign('__controller__',$this);
 	}
 
@@ -134,4 +132,6 @@ class AdminController extends Controller {
         $this->assign('_table_class','table table-striped table-bordered table-hover table-full-width dataTable');
         return $this->fetch('Public:_list');
     }
+
+    //public 
 }
