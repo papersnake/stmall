@@ -73,6 +73,7 @@ class AdminController extends Controller {
 		//dump($page);
 		if($total>$listRows){
 			$page->setConfig('theme','%FIRST% %UP_PAGE% %LINK_PAGE% %DOWN_PAGE% %END% %HEADER%');
+			$page->setConfig('header','<li class="active"><a href="#">共 %TOTAL_ROW% 条记录</a></li>');
 		}
 
 		$p = $page->show();
@@ -130,7 +131,7 @@ class AdminController extends Controller {
         });
         $this->assign('_thead',$thead);
         $this->assign('_list',$list);
-        $this->assign('_table_class','table table-bordered table-striped table-condensed');
+        $this->assign('_table_class','table table-striped table-bordered table-hover table-full-width dataTable');
         return $this->fetch('Public:_list');
     }
 }

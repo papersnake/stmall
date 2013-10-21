@@ -1,264 +1,970 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-	<!--
-		Charisma v1.0.0
-
-		Copyright 2012 Muhammad Usman
-		Licensed under the Apache License v2.0
-		http://www.apache.org/licenses/LICENSE-2.0
-
-		http://usman.it
-		http://twitter.com/halalit_usman
-	-->
-	<meta charset="utf-8">
-	<title>Free HTML5 Bootstrap Admin Template</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta name="description" content="Stmall a online shop">
-	<meta name="author" content="papersnake">
-
-	<!-- The styles -->
-	<link id="bs-css" href="__CSS__/bootstrap-cerulean.css" rel="stylesheet">
-	<style type="text/css">
-	  body {
-		padding-bottom: 40px;
-	  }
-	  .sidebar-nav {
-		padding: 9px 0;
-	  }
-	</style>
-	<link href="__CSS__/bootstrap-responsive.css" rel="stylesheet">
-	<link href="__CSS__/charisma-app.css" rel="stylesheet">
-	<link href="__CSS__/jquery-ui-1.8.21.custom.css" rel="stylesheet">
-	<link href='__CSS__/fullcalendar.css' rel='stylesheet'>
-	<link href='__CSS__/fullcalendar.print.css' rel='stylesheet'  media='print'>
-	<link href='__CSS__/chosen.css' rel='stylesheet'>
-	<link href='__CSS__/uniform.default.css' rel='stylesheet'>
-	<link href='__CSS__/colorbox.css' rel='stylesheet'>
-	<link href='__CSS__/jquery.cleditor.css' rel='stylesheet'>
-	<link href='__CSS__/jquery.noty.css' rel='stylesheet'>
-	<link href='__CSS__/noty_theme_default.css' rel='stylesheet'>
-	<link href='__CSS__/elfinder.min.css' rel='stylesheet'>
-	<link href='__CSS__/elfinder.theme.css' rel='stylesheet'>
-	<link href='__CSS__/jquery.iphone.toggle.css' rel='stylesheet'>
-	<link href='__CSS__/opa-icons.css' rel='stylesheet'>
-	<link href='__CSS__/uploadify.css' rel='stylesheet'>
-	<link href='__CSS__/main.css' rel='stylesheet'>
-	<!-- The HTML5 shim, for IE6-8 support of HTML5 elements -->
-	<!--[if lt IE 9]>
-	  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-	<![endif]-->
-
-	<!-- The fav icon -->
-	<link rel="shortcut icon" href="__IMG__/favicon.ico">
-	<block name="style"></block>
-		
-</head>
-
-<body>
-		<!-- topbar starts -->
-	<div class="navbar">
-		<div class="navbar-inner">
-			<div class="container-fluid">
-				<a class="btn btn-navbar" data-toggle="collapse" data-target=".top-nav.nav-collapse,.sidebar-nav.nav-collapse">
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				</a>
-				<a class="brand" href="index.html"> <img alt="Charisma Logo" src="__IMG__/logo20.png" /> <span>大润发厍星店</span></a>
-				
-				<!-- theme selector starts -->
-				<div class="btn-group pull-right theme-container" >
-					<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-						<i class="icon-tint"></i><span class="hidden-phone"> Change Theme / Skin</span>
-						<span class="caret"></span>
+<!-- Template Name: Clip-One - Responsive Admin Template build with Twitter Bootstrap 3 Version: 1.0 Author: ClipTheme -->
+<!--[if IE 8]><html class="ie8 no-js" lang="en"><![endif]-->
+<!--[if IE 9]><html class="ie9 no-js" lang="en"><![endif]-->
+<!--[if !IE]><!-->
+<html lang="en" class="no-js">
+	<!--<![endif]-->
+	<!-- start: HEAD -->
+	<head>
+		<title>Clip-One - Responsive Admin Template</title>
+		<!-- start: META -->
+		<meta charset="utf-8" />
+		<!--[if IE]><meta http-equiv='X-UA-Compatible' content="IE=edge,IE=9,IE=8,chrome=1" /><![endif]-->
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta content="" name="description" />
+		<meta content="" name="author" />
+		<!-- end: META -->
+		<!-- start: MAIN CSS -->
+		<link href="__PLUGINS__/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+		<link rel="stylesheet" href="__PLUGINS__/font-awesome/css/font-awesome.min.css">
+		<link rel="stylesheet" href="__FONTS__/style.css">
+		<link rel="stylesheet" href="__CSS__/main.css">
+		<link rel="stylesheet" href="__CSS__/main-responsive.css">
+		<link rel="stylesheet" href="__PLUGINS__/iCheck/skins/all.css">
+		<link rel="stylesheet" href="__PLUGINS__/perfect-scrollbar/src/perfect-scrollbar.css">
+		<link rel="stylesheet" href="__CSS__/theme_light.css" id="skin_color">
+		<!--[if IE 7]>
+		<link rel="stylesheet" href="__PLUGINS__/font-awesome/css/font-awesome-ie7.min.css">
+		<![endif]-->
+		<!-- end: MAIN CSS -->
+		<!-- start: CSS REQUIRED FOR THIS PAGE ONLY -->
+		<block name="style"></block>
+		<!-- end: CSS REQUIRED FOR THIS PAGE ONLY -->
+		<link rel="shortcut icon" href="favicon.ico" />
+	</head>
+	<!-- end: HEAD -->
+	<!-- start: BODY -->
+	<body>
+		<!-- start: HEADER -->
+		<div class="navbar navbar-inverse navbar-fixed-top">
+			<!-- start: TOP NAVIGATION CONTAINER -->
+			<div class="container">
+				<div class="navbar-header">
+					<!-- start: RESPONSIVE MENU TOGGLER -->
+					<button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
+						<span class="clip-list-2"></span>
+					</button>
+					<!-- end: RESPONSIVE MENU TOGGLER -->
+					<!-- start: LOGO -->
+					<a class="navbar-brand" href="index.html">
+						CLIP<i class="clip-clip"></i>ONE
 					</a>
-					<ul class="dropdown-menu" id="themes">
-						<li><a data-value="classic" href="#"><i class="icon-blank"></i> Classic</a></li>
-						<li><a data-value="cerulean" href="#"><i class="icon-blank"></i> Cerulean</a></li>
-						<li><a data-value="cyborg" href="#"><i class="icon-blank"></i> Cyborg</a></li>
-						<li><a data-value="redy" href="#"><i class="icon-blank"></i> Redy</a></li>
-						<li><a data-value="journal" href="#"><i class="icon-blank"></i> Journal</a></li>
-						<li><a data-value="simplex" href="#"><i class="icon-blank"></i> Simplex</a></li>
-						<li><a data-value="slate" href="#"><i class="icon-blank"></i> Slate</a></li>
-						<li><a data-value="spacelab" href="#"><i class="icon-blank"></i> Spacelab</a></li>
-						<li><a data-value="united" href="#"><i class="icon-blank"></i> United</a></li>
-					</ul>
+					<!-- end: LOGO -->
 				</div>
-				<!-- theme selector ends -->
-				
-				<!-- user dropdown starts -->
-				<div class="btn-group pull-right" >
-					<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-						<i class="icon-user"></i><span class="hidden-phone"> admin</span>
-						<span class="caret"></span>
-					</a>
-					<ul class="dropdown-menu">
-						<li><a href="#">Profile</a></li>
-						<li class="divider"></li>
-						<li><a href="{:U('Public/logout')}">Logout</a></li>
+				<div class="navbar-tools">
+					<!-- start: TOP NAVIGATION MENU -->
+					<ul class="nav navbar-right">
+						<!-- start: TO-DO DROPDOWN -->
+						<li class="dropdown">
+							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
+								<i class="clip-list-5"></i>
+								<span class="badge"> 12</span>
+							</a>
+							<ul class="dropdown-menu todo">
+								<li>
+									<span class="dropdown-menu-title"> You have 12 pending tasks</span>
+								</li>
+								<li>
+									<div class="drop-down-wrapper">
+										<ul>
+											<li>
+												<a class="todo-actions" href="javascript:void(0)">
+													<i class="icon-check-empty"></i>
+													<span class="desc" style="opacity: 1; text-decoration: none;"> Windows Phone 8 App</span>
+													<span class="label label-danger" style="opacity: 1;"> today</span>
+												</a>
+											</li>
+											<li>
+												<a class="todo-actions" href="javascript:void(0)">
+													<i class="icon-check-empty"></i>
+													<span class="desc" style="opacity: 1; text-decoration: none;"> New frontend layout</span>
+													<span class="label label-danger" style="opacity: 1;"> today</span>
+												</a>
+											</li>
+											<li>
+												<a class="todo-actions" href="javascript:void(0)">
+													<i class="icon-check-empty"></i>
+													<span class="desc"> Hire developers</span>
+													<span class="label label-warning"> tommorow</span>
+												</a>
+											</li>
+											<li>
+												<a class="todo-actions" href="javascript:void(0)">
+													<i class="icon-check-empty"></i>
+													<span class="desc"> Windows Phone 8 App</span>
+													<span class="label label-warning"> tommorow</span>
+												</a>
+											</li>
+											<li>
+												<a class="todo-actions" href="javascript:void(0)">
+													<i class="icon-check-empty"></i>
+													<span class="desc"> New frontend layout</span>
+													<span class="label label-success"> this week</span>
+												</a>
+											</li>
+											<li>
+												<a class="todo-actions" href="javascript:void(0)">
+													<i class="icon-check-empty"></i>
+													<span class="desc"> Hire developers</span>
+													<span class="label label-success"> this week</span>
+												</a>
+											</li>
+											<li>
+												<a class="todo-actions" href="javascript:void(0)">
+													<i class="icon-check-empty"></i>
+													<span class="desc"> New frontend layout</span>
+													<span class="label label-info"> this month</span>
+												</a>
+											</li>
+											<li>
+												<a class="todo-actions" href="javascript:void(0)">
+													<i class="icon-check-empty"></i>
+													<span class="desc"> Hire developers</span>
+													<span class="label label-info"> this month</span>
+												</a>
+											</li>
+											<li>
+												<a class="todo-actions" href="javascript:void(0)">
+													<i class="icon-check-empty"></i>
+													<span class="desc" style="opacity: 1; text-decoration: none;"> Windows Phone 8 App</span>
+													<span class="label label-danger" style="opacity: 1;"> today</span>
+												</a>
+											</li>
+											<li>
+												<a class="todo-actions" href="javascript:void(0)">
+													<i class="icon-check-empty"></i>
+													<span class="desc" style="opacity: 1; text-decoration: none;"> New frontend layout</span>
+													<span class="label label-danger" style="opacity: 1;"> today</span>
+												</a>
+											</li>
+											<li>
+												<a class="todo-actions" href="javascript:void(0)">
+													<i class="icon-check-empty"></i>
+													<span class="desc"> Hire developers</span>
+													<span class="label label-warning"> tommorow</span>
+												</a>
+											</li>
+										</ul>
+									</div>
+								</li>
+								<li class="view-all">
+									<a href="javascript:void(0)">
+										See all tasks <i class="icon-circle-arrow-right"></i>
+									</a>
+								</li>
+							</ul>
+						</li>
+						<!-- end: TO-DO DROPDOWN-->
+						<!-- start: NOTIFICATION DROPDOWN -->
+						<li class="dropdown">
+							<a data-toggle="dropdown" data-hover="dropdown" class="dropdown-toggle" data-close-others="true" href="#">
+								<i class="clip-notification-2"></i>
+								<span class="badge"> 11</span>
+							</a>
+							<ul class="dropdown-menu notifications">
+								<li>
+									<span class="dropdown-menu-title"> You have 11 notifications</span>
+								</li>
+								<li>
+									<div class="drop-down-wrapper">
+										<ul>
+											<li>
+												<a href="javascript:void(0)">
+													<span class="label label-primary"><i class="icon-user"></i></span>
+													<span class="message"> New user registration</span>
+													<span class="time"> 1 min</span>
+												</a>
+											</li>
+											<li>
+												<a href="javascript:void(0)">
+													<span class="label label-success"><i class="icon-comment"></i></span>
+													<span class="message"> New comment</span>
+													<span class="time"> 7 min</span>
+												</a>
+											</li>
+											<li>
+												<a href="javascript:void(0)">
+													<span class="label label-success"><i class="icon-comment"></i></span>
+													<span class="message"> New comment</span>
+													<span class="time"> 8 min</span>
+												</a>
+											</li>
+											<li>
+												<a href="javascript:void(0)">
+													<span class="label label-success"><i class="icon-comment"></i></span>
+													<span class="message"> New comment</span>
+													<span class="time"> 16 min</span>
+												</a>
+											</li>
+											<li>
+												<a href="javascript:void(0)">
+													<span class="label label-primary"><i class="icon-user"></i></span>
+													<span class="message"> New user registration</span>
+													<span class="time"> 36 min</span>
+												</a>
+											</li>
+											<li>
+												<a href="javascript:void(0)">
+													<span class="label label-warning"><i class="icon-shopping-cart"></i></span>
+													<span class="message"> 2 items sold</span>
+													<span class="time"> 1 hour</span>
+												</a>
+											</li>
+											<li class="warning">
+												<a href="javascript:void(0)">
+													<span class="label label-danger"><i class="icon-user"></i></span>
+													<span class="message"> User deleted account</span>
+													<span class="time"> 2 hour</span>
+												</a>
+											</li>
+											<li class="warning">
+												<a href="javascript:void(0)">
+													<span class="label label-danger"><i class="icon-shopping-cart"></i></span>
+													<span class="message"> Transaction was canceled</span>
+													<span class="time"> 6 hour</span>
+												</a>
+											</li>
+											<li>
+												<a href="javascript:void(0)">
+													<span class="label label-success"><i class="icon-comment"></i></span>
+													<span class="message"> New comment</span>
+													<span class="time"> yesterday</span>
+												</a>
+											</li>
+											<li>
+												<a href="javascript:void(0)">
+													<span class="label label-primary"><i class="icon-user"></i></span>
+													<span class="message"> New user registration</span>
+													<span class="time"> yesterday</span>
+												</a>
+											</li>
+											<li>
+												<a href="javascript:void(0)">
+													<span class="label label-primary"><i class="icon-user"></i></span>
+													<span class="message"> New user registration</span>
+													<span class="time"> yesterday</span>
+												</a>
+											</li>
+											<li>
+												<a href="javascript:void(0)">
+													<span class="label label-success"><i class="icon-comment"></i></span>
+													<span class="message"> New comment</span>
+													<span class="time"> yesterday</span>
+												</a>
+											</li>
+											<li>
+												<a href="javascript:void(0)">
+													<span class="label label-success"><i class="icon-comment"></i></span>
+													<span class="message"> New comment</span>
+													<span class="time"> yesterday</span>
+												</a>
+											</li>
+										</ul>
+									</div>
+								</li>
+								<li class="view-all">
+									<a href="javascript:void(0)">
+										See all notifications <i class="icon-circle-arrow-right"></i>
+									</a>
+								</li>
+							</ul>
+						</li>
+						<!-- end: NOTIFICATION DROPDOWN -->
+						<!-- start: MESSAGE DROPDOWN -->
+						<li class="dropdown">
+							<a class="dropdown-toggle" data-close-others="true" data-hover="dropdown" data-toggle="dropdown" href="#">
+								<i class="clip-bubble-3"></i>
+								<span class="badge"> 9</span>
+							</a>
+							<ul class="dropdown-menu posts">
+								<li>
+									<span class="dropdown-menu-title"> You have 9 messages</span>
+								</li>
+								<li>
+									<div class="drop-down-wrapper">
+										<ul>
+											<li>
+												<a href="javascript:;">
+													<div class="clearfix">
+														<div class="thread-image">
+															<img alt="" src="__IMG__/avatar-2.jpg">
+														</div>
+														<div class="thread-content">
+															<span class="author">Nicole Bell</span>
+															<span class="preview">Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.</span>
+															<span class="time"> Just Now</span>
+														</div>
+													</div>
+												</a>
+											</li>
+											<li>
+												<a href="javascript:;">
+													<div class="clearfix">
+														<div class="thread-image">
+															<img alt="" src="__IMG__/avatar-1.jpg">
+														</div>
+														<div class="thread-content">
+															<span class="author">Peter Clark</span>
+															<span class="preview">Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.</span>
+															<span class="time">2 mins</span>
+														</div>
+													</div>
+												</a>
+											</li>
+											<li>
+												<a href="javascript:;">
+													<div class="clearfix">
+														<div class="thread-image">
+															<img alt="" src="__IMG__/avatar-3.jpg">
+														</div>
+														<div class="thread-content">
+															<span class="author">Steven Thompson</span>
+															<span class="preview">Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.</span>
+															<span class="time">8 hrs</span>
+														</div>
+													</div>
+												</a>
+											</li>
+											<li>
+												<a href="javascript:;">
+													<div class="clearfix">
+														<div class="thread-image">
+															<img alt="" src="__IMG__/avatar-1.jpg">
+														</div>
+														<div class="thread-content">
+															<span class="author">Peter Clark</span>
+															<span class="preview">Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.</span>
+															<span class="time">9 hrs</span>
+														</div>
+													</div>
+												</a>
+											</li>
+											<li>
+												<a href="javascript:;">
+													<div class="clearfix">
+														<div class="thread-image">
+															<img alt="" src="__IMG__/avatar-5.jpg">
+														</div>
+														<div class="thread-content">
+															<span class="author">Kenneth Ross</span>
+															<span class="preview">Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.</span>
+															<span class="time">14 hrs</span>
+														</div>
+													</div>
+												</a>
+											</li>
+										</ul>
+									</div>
+								</li>
+								<li class="view-all">
+									<a href="pages_messages.html">
+										See all messages <i class="icon-circle-arrow-right"></i>
+									</a>
+								</li>
+							</ul>
+						</li>
+						<!-- end: MESSAGE DROPDOWN -->
+						<!-- start: USER DROPDOWN -->
+						<li class="dropdown current-user">
+							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
+								<img src="__IMG__/avatar-1-small.jpg" class="circle-img" alt="">
+								<span class="username">Peter Clark</span>
+								<i class="clip-chevron-down"></i>
+							</a>
+							<ul class="dropdown-menu">
+								<li>
+									<a href="pages_user_profile.html">
+										<i class="clip-user-2"></i>
+										&nbsp;My Profile
+									</a>
+								</li>
+								<li>
+									<a href="pages_calendar.html">
+										<i class="clip-calendar"></i>
+										&nbsp;My Calendar
+									</a>
+								<li>
+									<a href="pages_messages.html">
+										<i class="clip-bubble-4"></i>
+										&nbsp;My Messages (3)
+									</a>
+								</li>
+								<li class="divider"></li>
+								<li>
+									<a href="utility_lock_screen.html"><i class="clip-locked"></i>
+										&nbsp;Lock Screen </a>
+								</li>
+								<li>
+									<a href="login_example1.html">
+										<i class="clip-exit"></i>
+										&nbsp;Log Out
+									</a>
+								</li>
+							</ul>
+						</li>
+						<!-- end: USER DROPDOWN -->
 					</ul>
+					<!-- end: TOP NAVIGATION MENU -->
 				</div>
-				<!-- user dropdown ends -->
-				
-				<div class="top-nav nav-collapse">
-					<ul class="nav">
-						<li><a href="{:U('Admin/Index/Index')}">首页</a></li>
-						<li class="active"><a href="{:U('Admin/Good/Index')}">商品管理</a></li>
-						<!--<li>
-							<form class="navbar-search pull-left">
-								<input placeholder="Search" class="search-query span2" name="query" type="text">
-							</form>
-						</li>-->
+			</div>
+			<!-- end: TOP NAVIGATION CONTAINER -->
+		</div>
+		<!-- end: HEADER -->
+		<!-- start: MAIN CONTAINER -->
+		<div class="main-container">
+			<div class="navbar-content">
+				<!-- start: SIDEBAR -->
+				<div class="main-navigation navbar-collapse collapse">
+					<!-- start: MAIN MENU TOGGLER BUTTON -->
+					<div class="navigation-toggler">
+						<i class="clip-chevron-left"></i>
+						<i class="clip-chevron-right"></i>
+					</div>
+					<!-- end: MAIN MENU TOGGLER BUTTON -->
+					<!-- start: MAIN NAVIGATION MENU -->
+					<ul class="main-navigation-menu">
+						<li>
+							<a href="index.html"><i class="clip-home-3"></i>
+								<span class="title"> Dashboard </span><span class="selected"></span>
+							</a>
+						</li>
+						<li>
+							<a href="javascript:void(0)"><i class="clip-cog-2"></i>
+								<span class="title"> UI Lab </span><i class="icon-arrow"></i>
+								<span class="selected"></span>
+							</a>
+							<ul class="sub-menu">
+								<li>
+									<a href="ui_elements.html">
+										<span class="title"> Elements </span>
+									</a>
+								</li>
+								<li>
+									<a href="ui_buttons.html">
+										<span class="title"> Buttons &amp; icons </span>
+									</a>
+								</li>
+								<li>
+									<a href="ui_modals.html">
+										<span class="title"> Extended Modals </span>
+									</a>
+								</li>
+								<li>
+									<a href="ui_tabs_accordions.html">
+										<span class="title"> Tabs &amp; Accordions </span>
+									</a>
+								</li>
+								<li>
+									<a href="ui_sliders.html">
+										<span class="title"> Sliders </span>
+									</a>
+								</li>
+								<li>
+									<a href="ui_treeview.html">
+										<span class="title"> Treeview </span>
+									</a>
+								</li>
+								<li>
+									<a href="ui_nestable.html">
+										<span class="title"> Nestable List </span>
+									</a>
+								</li>
+								<li>
+									<a href="ui_typography.html">
+										<span class="title"> Typography </span>
+									</a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a href="javascript:void(0)"><i class="clip-grid-6"></i>
+								<span class="title"> Tables </span><i class="icon-arrow"></i>
+								<span class="selected"></span>
+							</a>
+							<ul class="sub-menu">
+								<li>
+									<a href="table_static.html">
+										<span class="title">Static Tables</span>
+									</a>
+								</li>
+								<li>
+									<a href="table_responsive.html">
+										<span class="title">Responsive Tables</span>
+									</a>
+								</li>
+								<li>
+									<a href="table_data.html">
+										<span class="title">Data Tables</span>
+									</a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a href="javascript:void(0)"><i class="clip-pencil"></i>
+								<span class="title"> Forms </span><i class="icon-arrow"></i>
+								<span class="selected"></span>
+							</a>
+							<ul class="sub-menu">
+								<li>
+									<a href="form_elements.html">
+										<span class="title">Form Elements</span>
+									</a>
+								</li>
+								<li>
+									<a href="form_wizard.html">
+										<span class="title">Form Wizard</span>
+									</a>
+								</li>
+								<li>
+									<a href="form_validation.html">
+										<span class="title">Form Validation</span>
+									</a>
+								</li>
+								<li>
+									<a href="form_inline.html">
+										<span class="title">Inline Editor</span>
+									</a>
+								</li>
+								<li>
+									<a href="form_image_cropping.html">
+										<span class="title">Image Cropping</span>
+									</a>
+								</li>
+								<li>
+									<a href="form_multiple_upload.html">
+										<span class="title">Multiple File Upload</span>
+									</a>
+								</li>
+								<li>
+									<a href="form_dropzone.html">
+										<span class="title">Dropzone File Upload</span>
+									</a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a href="javascript:void(0)"><i class="clip-user-2"></i>
+								<span class="title">Login</span><i class="icon-arrow"></i>
+								<span class="selected"></span>
+							</a>
+							<ul class="sub-menu">
+								<li>
+									<a href="login_example1.html">
+										<span class="title">Login Form Example 1</span>
+									</a>
+								</li>
+								<li>
+									<a href="login_example2.html">
+										<span class="title">Login Form Example 2</span>
+									</a>
+								</li>
+							</ul>
+						</li>
+						<li class="active open">
+							<a href="javascript:void(0)"><i class="clip-file"></i>
+								<span class="title">Pages</span><i class="icon-arrow"></i>
+								<span class="selected"></span>
+							</a>
+							<ul class="sub-menu">
+								<li>
+									<a href="pages_timeline.html">
+										<span class="title">Timeline</span>
+									</a>
+								</li>
+								<li>
+									<a href="pages_calendar.html">
+										<span class="title">Calendar</span>
+									</a>
+								</li>
+								<li>
+									<a href="pages_messages.html">
+										<span class="title">Messages</span>
+									</a>
+								</li>
+								<li class="active">
+									<a href="pages_blank_page.html">
+										<span class="title">Blank Page</span>
+									</a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a href="javascript:void(0)"><i class="clip-attachment-2"></i>
+								<span class="title">Utility</span><i class="icon-arrow"></i>
+								<span class="selected"></span>
+							</a>
+							<ul class="sub-menu">
+								<li>
+									<a href="utility_faq.html">
+										<span class="title">Faq</span>
+									</a>
+								</li>
+								<li>
+									<a href="utility_lock_screen.html">
+										<span class="title">Lock Screen</span>
+									</a>
+								</li>
+								<li>
+									<a href="utility_404_example1.html">
+										<span class="title">Error 404 Example 1</span>
+									</a>
+								</li>
+								<li>
+									<a href="utility_404_example2.html">
+										<span class="title">Error 404 Example 2</span>
+									</a>
+								</li>
+								<li>
+									<a href="utility_404_example3.html">
+										<span class="title">Error 404 Example 3</span>
+									</a>
+								</li>
+								<li>
+									<a href="utility_500_example1.html">
+										<span class="title">Error 500 Example 1</span>
+									</a>
+								</li>
+								<li>
+									<a href="utility_500_example2.html">
+										<span class="title">Error 500 Example 2</span>
+									</a>
+								</li>
+								<li>
+									<a href="utility_pricing_table.html">
+										<span class="title">Pricing Table</span>
+									</a>
+								</li>
+								<li>
+									<a href="utility_coming_soon.html">
+										<span class="title">Cooming Soon</span>
+									</a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a href="javascript:;" class="active">
+								<i class="clip-folder"></i>
+								<span class="title"> 3 Level Menu </span>
+								<i class="icon-arrow"></i>
+							</a>
+							<ul class="sub-menu">
+								<li>
+									<a href="javascript:;">
+										Item 1 <i class="icon-arrow"></i>
+									</a>
+									<ul class="sub-menu">
+										<li>
+											<a href="#">
+												Sample Link 1
+											</a>
+										</li>
+										<li>
+											<a href="#">
+												Sample Link 2
+											</a>
+										</li>
+										<li>
+											<a href="#">
+												Sample Link 3
+											</a>
+										</li>
+									</ul>
+								</li>
+								<li>
+									<a href="javascript:;">
+										Item 1 <i class="icon-arrow"></i>
+									</a>
+									<ul class="sub-menu">
+										<li>
+											<a href="#">
+												Sample Link 1
+											</a>
+										</li>
+										<li>
+											<a href="#">
+												Sample Link 1
+											</a>
+										</li>
+										<li>
+											<a href="#">
+												Sample Link 1
+											</a>
+										</li>
+									</ul>
+								</li>
+								<li>
+									<a href="#">
+										Item 3
+									</a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a href="javascript:;">
+								<i class="clip-folder-open"></i>
+								<span class="title"> 4 Level Menu </span><i class="icon-arrow"></i>
+								<span class="arrow "></span>
+							</a>
+							<ul class="sub-menu">
+								<li>
+									<a href="javascript:;">
+										Item 1 <i class="icon-arrow"></i>
+									</a>
+									<ul class="sub-menu">
+										<li>
+											<a href="javascript:;">
+												Sample Link 1 <i class="icon-arrow"></i>
+											</a>
+											<ul class="sub-menu">
+												<li>
+													<a href="#"><i class="icon-remove"></i>
+														Sample Link 1</a>
+												</li>
+												<li>
+													<a href="#"><i class="icon-pencil"></i>
+														Sample Link 1</a>
+												</li>
+												<li>
+													<a href="#"><i class="icon-edit"></i>
+														Sample Link 1</a>
+												</li>
+											</ul>
+										</li>
+										<li>
+											<a href="#">
+												Sample Link 1
+											</a>
+										</li>
+										<li>
+											<a href="#">
+												Sample Link 2
+											</a>
+										</li>
+										<li>
+											<a href="#">
+												Sample Link 3
+											</a>
+										</li>
+									</ul>
+								</li>
+								<li>
+									<a href="javascript:;">
+										Item 2 <i class="icon-arrow"></i>
+									</a>
+									<ul class="sub-menu">
+										<li>
+											<a href="#">
+												Sample Link 1
+											</a>
+										</li>
+										<li>
+											<a href="#">
+												Sample Link 1
+											</a>
+										</li>
+										<li>
+											<a href="#">
+												Sample Link 1
+											</a>
+										</li>
+									</ul>
+								</li>
+								<li>
+									<a href="#">
+										Item 3
+									</a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a href="maps.html"><i class="clip-location"></i>
+								<span class="title">Maps</span>
+								<span class="selected"></span>
+							</a>
+						</li>
+						<li>
+							<a href="charts.html"><i class="clip-bars"></i>
+								<span class="title">Charts</span>
+								<span class="selected"></span>
+							</a>
+						</li>
 					</ul>
-				</div><!--/.nav-collapse -->
+					<!-- end: MAIN NAVIGATION MENU -->
+				</div>
+				<!-- end: SIDEBAR -->
+			</div>
+			<!-- start: PAGE -->
+			<div class="main-content">
+				<!-- start: PANEL CONFIGURATION MODAL FORM -->
+				<div class="modal fade" id="panel-config" tabindex="-1" role="dialog" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+									&times;
+								</button>
+								<h4 class="modal-title">Panel Configuration</h4>
+							</div>
+							<div class="modal-body">
+								Here will be a configuration form
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default" data-dismiss="modal">
+									Close
+								</button>
+								<button type="button" class="btn btn-primary">
+									Save changes
+								</button>
+							</div>
+						</div>
+						<!-- /.modal-content -->
+					</div>
+					<!-- /.modal-dialog -->
+				</div>
+				<!-- /.modal -->
+				<!-- end: SPANEL CONFIGURATION MODAL FORM -->
+				<div class="container">
+					<!-- start: PAGE HEADER -->
+					<div class="row">
+						<div class="col-sm-12">
+							<!-- start: STYLE SELECTOR BOX -->
+							<div id="style_selector">
+								<div id="style_selector_container">
+									<div class="style-main-title">
+										Style Selector
+									</div>
+									<div class="box-title">
+										Choose Your Layout Style
+									</div>
+									<div class="input-box">
+										<div class="input">
+											<select name="layout">
+												<option value="default">Wide</option><option value="boxed">Boxed</option>
+											</select>
+										</div>
+									</div>
+									<div class="box-title">
+										Choose Your Header Style
+									</div>
+									<div class="input-box">
+										<div class="input">
+											<select name="header">
+												<option value="fixed">Fixed</option><option value="default">Default</option>
+											</select>
+										</div>
+									</div>
+									<div class="box-title">
+										Choose Your Footer Style
+									</div>
+									<div class="input-box">
+										<div class="input">
+											<select name="footer">
+												<option value="default">Default</option><option value="fixed">Fixed</option>
+											</select>
+										</div>
+									</div>
+									<div class="box-title">
+										Backgrounds for Boxed Version
+									</div>
+									<div class="images boxed-patterns">
+										<a id="bg_style_1" href="#"><img alt="" src="__IMG__/bg.png"></a>
+										<a id="bg_style_2" href="#"><img alt="" src="__IMG__/bg_2.png"></a>
+										<a id="bg_style_3" href="#"><img alt="" src="__IMG__/bg_3.png"></a>
+										<a id="bg_style_4" href="#"><img alt="" src="__IMG__/bg_4.png"></a>
+										<a id="bg_style_5" href="#"><img alt="" src="__IMG__/bg_5.png"></a>
+									</div>
+									<div class="box-title">
+										5 Predefined Color Schemes
+									</div>
+									<div class="images icons-color">
+										<a id="light" href="#"><img class="active" alt="" src="__IMG__/lightgrey.png"></a>
+										<a id="dark" href="#"><img alt="" src="__IMG__/darkgrey.png"></a>
+										<a id="black_and_white" href="#"><img alt="" src="__IMG__/blackandwhite.png"></a>
+										<a id="navy" href="#"><img alt="" src="__IMG__/navy.png"></a>
+										<a id="green" href="#"><img alt="" src="__IMG__/green.png"></a>
+									</div>
+									<div style="height:25px;line-height:25px;" class="box-title">
+										<a class="clear_style" href="#">
+											Clear Styles
+										</a>
+									</div>
+								</div>
+								<div class="style-toggle close"></div>
+							</div>
+							<!-- end: STYLE SELECTOR BOX -->
+							<!-- start: PAGE TITLE & BREADCRUMB -->
+							<ol class="breadcrumb">
+								<li>
+									<i class="clip-file"></i>
+									<a href="#">
+										Pages
+									</a>
+								</li>
+								<li class="active">
+									Blank Page
+								</li>
+								<li class="search-box">
+									<form class="sidebar-search">
+										<div class="form-group">
+											<input type="text" placeholder="Start Searching...">
+											<button class="submit">
+												<i class="clip-search-3"></i>
+											</button>
+										</div>
+									</form>
+								</li>
+							</ol>
+							<div class="page-header">
+								<h1>Blank Page <small>blank page</small></h1>
+							</div>
+							<!-- end: PAGE TITLE & BREADCRUMB -->
+						</div>
+					</div>
+					<!-- end: PAGE HEADER -->
+					<!-- start: PAGE CONTENT -->
+					<block name="body"></block>
+					<!-- end: PAGE CONTENT-->
+				</div>
+			</div>
+			<!-- end: PAGE -->
+		</div>
+		<!-- end: MAIN CONTAINER -->
+		<!-- start: FOOTER -->
+		<div class="footer clearfix">
+			<div class="footer-inner">
+				2013 &copy; clip-one by cliptheme.
+			</div>
+			<div class="footer-items">
+				<span class="go-top"><i class="clip-chevron-up"></i></span>
 			</div>
 		</div>
-	</div>
-	<!-- topbar ends -->
-		<div class="container-fluid">
-		<div class="row-fluid">
-				
-			<!-- left menu starts -->
-			<div class="span2 main-menu-span">
-				<div class="well nav-collapse sidebar-nav">
-					<ul class="nav nav-tabs nav-stacked main-menu">
-						<li class="nav-header hidden-tablet">Main</li>
-						<li><a class="ajax-link" href="index.html"><i class="icon-home"></i><span class="hidden-tablet"> 站点信息</span></a></li>
-						<li><a class="ajax-link" href="ui.html"><i class="icon-eye-open"></i><span class="hidden-tablet"> UI Features</span></a></li>
-						<li><a class="ajax-link" href="form.html"><i class="icon-edit"></i><span class="hidden-tablet"> Forms</span></a></li>
-						<li><a class="ajax-link" href="chart.html"><i class="icon-list-alt"></i><span class="hidden-tablet"> Charts</span></a></li>
-						<li><a class="ajax-link" href="typography.html"><i class="icon-font"></i><span class="hidden-tablet"> Typography</span></a></li>
-						<li><a class="ajax-link" href="gallery.html"><i class="icon-picture"></i><span class="hidden-tablet"> Gallery</span></a></li>
-						<li class="nav-header hidden-tablet">Sample Section</li>
-						<li><a class="ajax-link" href="table.html"><i class="icon-align-justify"></i><span class="hidden-tablet"> Tables</span></a></li>
-						<li><a class="ajax-link" href="calendar.html"><i class="icon-calendar"></i><span class="hidden-tablet"> Calendar</span></a></li>
-						<li><a class="ajax-link" href="grid.html"><i class="icon-th"></i><span class="hidden-tablet"> Grid</span></a></li>
-						<li><a class="ajax-link" href="file-manager.html"><i class="icon-folder-open"></i><span class="hidden-tablet"> File Manager</span></a></li>
-						<li><a href="tour.html"><i class="icon-globe"></i><span class="hidden-tablet"> Tour</span></a></li>
-						<li><a class="ajax-link" href="icon.html"><i class="icon-star"></i><span class="hidden-tablet"> Icons</span></a></li>
-						<li><a href="error.html"><i class="icon-ban-circle"></i><span class="hidden-tablet"> Error Page</span></a></li>
-						<li><a href="login.html"><i class="icon-lock"></i><span class="hidden-tablet"> Login Page</span></a></li>
-					</ul>
-					<label id="for-is-ajax" class="hidden-tablet" for="is-ajax"><input id="is-ajax" type="checkbox"> Ajax on menu</label>
-				</div><!--/.well -->
-			</div><!--/span-->
-			<!-- left menu ends -->
-			
-			<noscript>
-				<div class="alert alert-block span10">
-					<h4 class="alert-heading">Warning!</h4>
-					<p>You need to have <a href="http://en.wikipedia.org/wiki/JavaScript" target="_blank">JavaScript</a> enabled to use this site.</p>
-				</div>
-			</noscript>
-			
-			<div id="content" class="span10">
-			<!-- content starts -->
-			
-
-			<div>
-				<ul class="breadcrumb">
-					<li>
-						<a href="#">Home</a> <span class="divider">/</span>
-					</li>
-					<li>
-						<a href="#">Dashboard</a>
-					</li>
-				</ul>
-			</div>
-				  
-			<block name="body"></block>
-		  
-       
-			<!-- content ends -->
-		</div><!--/#content.span10-->
-		</div><!--/fluid-row-->
-				
-		<hr>
-
-
-
-		<footer>
-			<p class="pull-left">&copy; <a href="http://usman.it" target="_blank">Muhammad Usman</a> 2012</p>
-			<p class="pull-right">Powered by: <a href="http://usman.it/free-responsive-admin-template">Charisma</a></p>
-		</footer>
-		
-	</div><!--/.fluid-container-->
-
-	<!-- external javascript
-	================================================== -->
-	<!-- Placed at the end of the document so the pages load faster -->
-
-	<!-- jQuery -->
-	<script src="__JS__/jquery-1.7.2.min.js"></script>
-	<!-- jQuery UI -->
-	<script src="__JS__/jquery-ui-1.8.21.custom.min.js"></script>
-	<!-- transition / effect library -->
-	<script src="__JS__/bootstrap-transition.js"></script>
-	<!-- alert enhancer library -->
-	<script src="__JS__/bootstrap-alert.js"></script>
-	<!-- modal / dialog library -->
-	<script src="__JS__/bootstrap-modal.js"></script>
-	<!-- custom dropdown library -->
-	<script src="__JS__/bootstrap-dropdown.js"></script>
-	<!-- scrolspy library -->
-	<script src="__JS__/bootstrap-scrollspy.js"></script>
-	<!-- library for creating tabs -->
-	<script src="__JS__/bootstrap-tab.js"></script>
-	<!-- library for advanced tooltip -->
-	<script src="__JS__/bootstrap-tooltip.js"></script>
-	<!-- popover effect library -->
-	<script src="__JS__/bootstrap-popover.js"></script>
-	<!-- button enhancer library -->
-	<script src="__JS__/bootstrap-button.js"></script>
-	<!-- accordion library (optional, not used in demo) -->
-	<script src="__JS__/bootstrap-collapse.js"></script>
-	<!-- carousel slideshow library (optional, not used in demo) -->
-	<script src="__JS__/bootstrap-carousel.js"></script>
-	<!-- autocomplete library -->
-	<script src="__JS__/bootstrap-typeahead.js"></script>
-	<!-- tour library -->
-	<script src="__JS__/bootstrap-tour.js"></script>
-	<!-- library for cookie management -->
-	<script src="__JS__/jquery.cookie.js"></script>
-	<!-- calander plugin -->
-	<script src='__JS__/fullcalendar.min.js'></script>
-	<!-- data table plugin -->
-	<script src='__JS__/jquery.dataTables.min.js'></script>
-
-	<!-- chart libraries start -->
-	<script src="__JS__/excanvas.js"></script>
-	<script src="__JS__/jquery.flot.min.js"></script>
-	<script src="__JS__/jquery.flot.pie.min.js"></script>
-	<script src="__JS__/jquery.flot.stack.js"></script>
-	<script src="__JS__/jquery.flot.resize.min.js"></script>
-	<!-- chart libraries end -->
-
-	<!-- select or dropdown enhancer -->
-	<script src="__JS__/jquery.chosen.min.js"></script>
-	<!-- checkbox, radio, and file input styler -->
-	<script src="__JS__/jquery.uniform.min.js"></script>
-	<!-- plugin for gallery image view -->
-	<script src="__JS__/jquery.colorbox.min.js"></script>
-	<!-- rich text editor library -->
-	<script src="__JS__/jquery.cleditor.min.js"></script>
-	<!-- notification plugin -->
-	<script src="__JS__/jquery.noty.js"></script>
-	<!-- file manager library -->
-	<script src="__JS__/jquery.elfinder.min.js"></script>
-	<!-- star rating plugin -->
-	<script src="__JS__/jquery.raty.min.js"></script>
-	<!-- for iOS style toggle switch -->
-	<script src="__JS__/jquery.iphone.toggle.js"></script>
-	<!-- autogrowing textarea plugin -->
-	<script src="__JS__/jquery.autogrow-textarea.js"></script>
-	<!-- multiple file upload plugin -->
-	<script src="__JS__/jquery.uploadify-3.1.min.js"></script>
-	<!-- history.js for cross-browser state change on ajax -->
-	<script src="__JS__/jquery.history.js"></script>
-	<!-- application script for Charisma demo -->
-	<script src="__JS__/charisma.js"></script>
-	
-	<block name="script"></block>	
-</body>
+		<!-- end: FOOTER -->
+		<!-- start: MAIN JAVASCRIPTS -->
+		<!--[if lt IE 9]>
+		<script src="__PLUGINS__/respond.min.js"></script>
+		<script src="__PLUGINS__/excanvas.min.js"></script>
+		<![endif]-->
+		<script src="__JS__/jquery-1.10.2.js"></script>
+		<script src="__PLUGINS__/jquery-ui/jquery-ui-1.10.2.custom.min.js"></script>
+		<script src="__PLUGINS__/bootstrap/js/bootstrap.min.js"></script>
+		<script src="__PLUGINS__/blockUI/jquery.blockUI.js"></script>
+		<script src="__PLUGINS__/iCheck/jquery.icheck.min.js"></script>
+		<script src="__PLUGINS__/perfect-scrollbar/src/jquery.mousewheel.js"></script>
+		<script src="__PLUGINS__/perfect-scrollbar/src/perfect-scrollbar.js"></script>
+		<script src="__JS__/main.js"></script>
+		<!-- end: MAIN JAVASCRIPTS -->
+		<!-- start: JAVASCRIPTS REQUIRED FOR THIS PAGE ONLY -->
+		<block name="scriptinclude"></block>
+		<!-- end: JAVASCRIPTS REQUIRED FOR THIS PAGE ONLY -->
+		<script>
+			jQuery(document).ready(function() {
+				Main.init();
+			});
+		</script>
+		<block name="script"></block>
+	</body>
+	<!-- end: BODY -->
 </html>

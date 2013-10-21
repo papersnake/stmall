@@ -1,64 +1,89 @@
 <extend name="Public/base" />
-
+<block name="style">
+	<link rel="stylesheet" href="__PLUGINS__/DataTables/media/css/DT_bootstrap.css">
+</block>
 <block name="body">
-<div class="row-fluid">
-				<div class="box span12">
-					<div class="navbar">
-						<div class="navbar-inner">
-							<div class="container">
-								<div class="nav-collapse collapse navbar-responsive-collapse">
-									<ul class="nav nav-pills" id="menutree">
+<div class="row">
+				<div class="col-md-12">
+					<nav class="navbar navbar-default navbar-static">
+								<div class="navbar-header">
+						          <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".bs-js-navbar-collapse">
+						            <span class="sr-only">Toggle navigation</span>
+						            <span class="icon-bar"></span>
+						            <span class="icon-bar"></span>
+						            <span class="icon-bar"></span>
+						          </button>
+						          <a class="navbar-brand" href="#">分类菜单</a>
+						        </div>
+								<div class="collapse navbar-collapse bs-js-navbar-collapse" id="categorymenu">
+								
+									<ul class="nav navbar-nav" id="menutree">
 									</ul>
-									<form class="navbar-search pull-right" action="{:U('Good/index')}">
-									 	<input type="text" name="query" class="search-query" placeholder="Search">
+								
+									<form class="navbar-form navbar-right" action="{:U('Good/index')}">
+									<div class="form-group">
+									 	<input type="text" name="query" class="form-control" placeholder="Search">
+									 </div>
 									</form>
 								</div>
-							</div>
-						</div>
-					</div>
+					</nav>
 				</div>
 </div>
-<div class="row-fluid sortable">		
-				<div class="box span12">
-					<div class="box-header well" data-original-title>
-						<h2><i class="icon-barcode"></i> 商品列表</h2>
-						<div class="box-icon">
-							<a href="#" class="btn btn-setting btn-round"><i class="icon-cog"></i></a>
-							<a href="#" class="btn btn-minimize btn-round"><i class="icon-chevron-up"></i></a>
-							<a href="#" class="btn btn-close btn-round"><i class="icon-remove"></i></a>
+<div class="row">		
+				<div class="col-md-12">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<i class="icon-barcode"></i> 商品列表
+							<div class="panel-tools">
+										<a class="btn btn-xs btn-link panel-collapse collapses" href="#">
+										</a>
+										<a class="btn btn-xs btn-link panel-config" href="#panel-config" data-toggle="modal">
+											<i class="icon-wrench"></i>
+										</a>
+										<a class="btn btn-xs btn-link panel-refresh" href="#">
+											<i class="icon-refresh"></i>
+										</a>
+										<a class="btn btn-xs btn-link panel-expand" href="#">
+											<i class="icon-resize-full"></i>
+										</a>
+										<a class="btn btn-xs btn-link panel-close" href="#">
+											<i class="icon-remove"></i>
+										</a>
+									</div>
 						</div>
-					</div>
-					<div class="box-content">
-						<?php
-						//dump($_list);
-						$thead = array(
-								'id'             => 'ID',
-								'good_id'        => '货号',
-								'barcode'        => '条码',
-								'good_name'      => '商品名称',
-								'good_spec'      => '规格',
-								'good_price'     => '价格',
-								'good_pur_price' => '进价',
-								'good_belong'    => '供应商',
-								'good_num'       => '库存',
-								'操作'             => array(
-										'编辑'=>array( 'href' => 'Article/edit?cate_id=$category_id&id=$id',),
-										'禁用'=>array( 'href' => 'Article/setStatus?status=0&ids=$id', 'class'=>'btn btn-danger', 'condition'=>'$status==1',),
-										'启用'=>array( 'href' => 'Article/setStatus?status=1&ids=$id', 'class'=>'btn btn-danger', 'condition'=>'$status==0',),
-									),
-							);
-						echo $_talellist = $__controller__->tableList($_list,$thead);
-						?> 
-						<div class="pagination pagination-centered">  
-					 		{$_page}
-					 	</div>
+						<div class="panel-body">
+							<?php
+							//dump($_list);
+							$thead = array(
+									'id'             => 'ID',
+									'good_id'        => '货号',
+									'barcode'        => '条码',
+									'good_name'      => '商品名称',
+									'good_spec'      => '规格',
+									'good_price'     => '价格',
+									'good_pur_price' => '进价',
+									'good_belong'    => '供应商',
+									'good_num'       => '库存',
+									'操作'             => array(
+											'编辑'=>array( 'href' => 'Article/edit?cate_id=$category_id&id=$id','class'=>'btn btn-danger',),
+											'禁用'=>array( 'href' => 'Article/setStatus?status=0&ids=$id', 'class'=>'btn btn-danger', 'condition'=>'$status==1',),
+											'启用'=>array( 'href' => 'Article/setStatus?status=1&ids=$id', 'class'=>'btn btn-danger', 'condition'=>'$status==0',),
+										),
+								);
+							echo $_talellist = $__controller__->tableList($_list,$thead);
+							?> 
+							<div class="col-md-12">
+								<div class="dataTables_paginate paging_bootstrap">  
+							 		{$_page}
+							 	</div>
+						 	</div>
+						</div>
 					</div>
 				</div><!--/span-->
 			
 			</div><!--/row-->
 </block>
 <block name="script">
-<script src="__JS__/bootstrap-exdropdown-min.js"></script>
 <script type="text/javascript">
 $(function(){
 	var targetUrl = '{:U('index','','')}';
@@ -69,9 +94,32 @@ $(function(){
 		type:"get",
 		success:function(data,status,xhr) {
 			var menu = $("#menutree");
-			makemenu(data,menu);
+			//makemenu(data,menu);
+			//var menu = $("#categorymenu");
+			makecategorymenu(data,menu);
 		}
 	});
+
+	function makecategorymenu(data,node){
+		$.each(data.childs,function(index,item){
+			var li = $("<li/>").appendTo(node);
+			var div = $("<div/>");
+			div.addClass('btn-group');
+			var a=$("<a/>",{href:targetUrl+"/cate_id/"+item.categoryId,text:item.categoryName});
+			a.addClass('btn btn-teal navbar-btn');
+			div.append(a);
+			if(item.hasChild)
+			{
+				var caretbtn='<button type="button" class="btn btn-teal navbar-btn dropdown-toggle" data-toggle="dropdown">' +
+          			'<span class="caret"></span>' +
+          			'<span class="sr-only">Toggle Dropdown</span>' +
+        			'</button>';
+        		div.append(caretbtn);
+        		makesubmenu(item,div);
+			}
+			li.append(div);
+		});
+	}
 
 	function makemenu(data,node){
 		//var menu = $("#menutree");
@@ -81,7 +129,7 @@ $(function(){
 				var a=$("<a />",{href:targetUrl+"/cate_id/"+item.categoryId,text:item.categoryName});
 				if(item.hasChild){
 					a.attr({
-						'data-toggle': 'exdropdown',
+						'data-toggle': 'dropdown',
 					});
 					a.addClass('dropdown-toggle');
 					a.append('<b class="caret">');
@@ -89,7 +137,7 @@ $(function(){
 				li.append(a);
 				if(item.hasChild)
 				{
-					li.addClass('dropdown');
+					//li.addClass('dropdown');
 					makesubmenu(item,li);
 				}
 				//menu.append(item.categoryName);

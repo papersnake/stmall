@@ -1,229 +1,276 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-	<!--
-		Charisma v1.0.0
+<!-- Template Name: Clip-One - Responsive Admin Template build with Twitter Bootstrap 3 Version: 1.0 Author: ClipTheme -->
+<!--[if IE 8]><html class="ie8 no-js" lang="en"><![endif]-->
+<!--[if IE 9]><html class="ie9 no-js" lang="en"><![endif]-->
+<!--[if !IE]><!-->
+<html lang="en" class="no-js">
+	<!--<![endif]-->
+	<!-- start: HEAD -->
+	<head>
+		<title>Clip-One - Responsive Admin Template</title>
+		<!-- start: META -->
+		<meta charset="utf-8" />
+		<!--[if IE]><meta http-equiv='X-UA-Compatible' content="IE=edge,IE=9,IE=8,chrome=1" /><![endif]-->
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta content="" name="description" />
+		<meta content="" name="author" />
+		<!-- end: META -->
+		<!-- start: MAIN CSS -->
+		<link href="__PLUGINS__/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+		<link rel="stylesheet" href="__PLUGINS__/font-awesome/css/font-awesome.min.css">
+		<link rel="stylesheet" href="__FONTS__/style.css">
+		<link rel="stylesheet" href="__CSS__/main.css">
+		<link rel="stylesheet" href="__CSS__/main-responsive.css">
+		<link rel="stylesheet" href="__PLUGINS__/iCheck/skins/all.css">
+		<link rel="stylesheet" href="__PLUGINS__/perfect-scrollbar/src/perfect-scrollbar.css">
+		<link rel="stylesheet" href="__PLUGINS__/bootstrap-modal/css/bootstrap-modal-bs3patch.css">
+		<link rel="stylesheet" href="__PLUGINS__/bootstrap-modal/css/bootstrap-modal.css">
+		<link rel="stylesheet" href="__CSS__/theme_light.css" id="skin_color">
+		<!--[if IE 7]>
+		<link rel="stylesheet" href="__PLUGINS__/font-awesome/css/font-awesome-ie7.min.css">
+		<![endif]-->
+		<!-- end: MAIN CSS -->
+		<!-- start: CSS REQUIRED FOR THIS PAGE ONLY -->
+		<!-- end: CSS REQUIRED FOR THIS PAGE ONLY -->
+	</head>
+	<!-- end: HEAD -->
+	<!-- start: BODY -->
+	<body class="login example1">
+		<div class="main-login col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
+			<div class="logo">CLIP<i class="clip-clip"></i>ONE
+			</div>
+			<!-- start: LOGIN BOX -->
+			<div class="box-login">
+				<h3>用户登录</h3>
+				<p>
+					请输入您的用户名和密码.
+				</p>
+				<form class="form-login" action="{:U('login')}" method="post">
+					<div class="errorHandler alert alert-danger no-display">
+						<i class="icon-remove-sign"></i> You have some form errors. Please check below.<br/>
+					</div>
+					<fieldset>
+						<div class="form-group">
+							<span class="input-icon">
+								<input type="text" class="form-control" name="username" placeholder="Username">
+								<i class="icon-user"></i> </span>
+							<!-- To mark the incorrectly filled input, you must add the class "error" to the input -->
+							<!-- example: <input type="text" class="login error" name="login" value="Username" /> -->
+						</div>
+						<div class="form-group form-actions">
+							<span class="input-icon">
+								<input type="password" class="form-control password" name="password" placeholder="Password">
+								<i class="icon-lock"></i>
+								<a class="forgot" href="#">
+									忘记密码
+								</a> </span>
+						</div>
+						<div class="form-group form-actions">
+							<span class="input-icon">
+								<input type="password" class="form-control" name="verify" placeholder="verify">
+								<i class="icon-cloud-download"></i>
+								<a class="reloadverify" href="javascript:void(0)">
+									换一张?
+								</a> </span>
+						</div>
+						<div class="form-group form-actions">
+						<img class="verifyimg" src="{:U('Public/verify')}">
+						</div>
+						<div class="form-actions">
+							<label for="remember" class="checkbox-inline">
+								<input type="checkbox" class="grey remember" id="remember" name="remember">
+								Keep me signed in
+							</label>
+							<button type="submit" class="btn btn-bricky pull-right">
+								登录 <i class="icon-circle-arrow-right"></i>
+							</button>
+						</div>
+						<div class="new-account">
+							Don't have an account yet?
+							<a href="#" class="register">
+								Create an account
+							</a>
+						</div>
+					</fieldset>
+				</form>
+			</div>
+			<!-- end: LOGIN BOX -->
+			<!-- start: FORGOT BOX -->
+			<div class="box-forgot">
+				<h3>Forget Password?</h3>
+				<p>
+					Enter your e-mail address below to reset your password.
+				</p>
+				<form class="form-forgot">
+					<div class="errorHandler alert alert-danger no-display">
+						<i class="icon-remove-sign"></i> You have some form errors. Please check below.
+					</div>
+					<fieldset>
+						<div class="form-group">
+							<span class="input-icon">
+								<input type="email" class="form-control" name="email" placeholder="Email">
+								<i class="icon-envelope"></i> </span>
+						</div>
+						<div class="form-actions">
+							<button class="btn btn-light-grey go-back">
+								<i class="icon-circle-arrow-left"></i> Back
+							</button>
+							<button type="submit" class="btn btn-bricky pull-right">
+								Submit <i class="icon-circle-arrow-right"></i>
+							</button>
+						</div>
+					</fieldset>
+				</form>
+			</div>
+			<!-- end: FORGOT BOX -->
+			<!-- start: REGISTER BOX -->
+			<div class="box-register">
+				<h3>Sign Up</h3>
+				<p>
+					Enter your personal details below:
+				</p>
+				<form class="form-register">
+					<div class="errorHandler alert alert-danger no-display">
+						<i class="icon-remove-sign"></i> You have some form errors. Please check below.
+					</div>
+					<fieldset>
+						<div class="form-group">
+							<input type="text" class="form-control" name="full_name" placeholder="Full Name">
+						</div>
+						<div class="form-group">
+							<input type="text" class="form-control" name="address" placeholder="Address">
+						</div>
+						<div class="form-group">
+							<input type="text" class="form-control" name="city" placeholder="City">
+						</div>
+						<div class="form-group">
+							<div>
+								<label class="radio-inline">
+									<input type="radio" class="grey" value="F" name="gender">
+									Female
+								</label>
+								<label class="radio-inline">
+									<input type="radio" class="grey" value="M" name="gender">
+									Male
+								</label>
+							</div>
+						</div>
+						<p>
+							Enter your account details below:
+						</p>
+						<div class="form-group">
+							<span class="input-icon">
+								<input type="email" class="form-control" name="email" placeholder="Email">
+								<i class="icon-envelope"></i> </span>
+						</div>
+						<div class="form-group">
+							<span class="input-icon">
+								<input type="password" class="form-control" id="password" name="password" placeholder="Password">
+								<i class="icon-lock"></i> </span>
+						</div>
+						<div class="form-group">
+							<span class="input-icon">
+								<input type="password" class="form-control" name="password_again" placeholder="Password Again">
+								<i class="icon-lock"></i> </span>
+						</div>
+						<div class="form-group">
+							<div>
+								<label for="agree" class="checkbox-inline">
+									<input type="checkbox" class="grey agree" id="agree" name="agree">
+									I agree to the Terms of Service and Privacy Policy
+								</label>
+							</div>
+						</div>
+						<div class="form-actions">
+							<button class="btn btn-light-grey go-back">
+								<i class="icon-circle-arrow-left"></i> Back
+							</button>
+							<button type="submit" class="btn btn-bricky pull-right">
+								Submit <i class="icon-circle-arrow-right"></i>
+							</button>
+						</div>
+					</fieldset>
+				</form>
+			</div>
+			<!-- end: REGISTER BOX -->
+			<!-- start: COPYRIGHT -->
+			<div class="copyright">
+				2013 &copy; clip-one by cliptheme.
+			</div>
+			<!-- end: COPYRIGHT -->
+		</div>
+		<div id="modal-loading" class="modal fade" tabindex="-1" style="display: none;">
+			<div class="loading-spinner" style="width: 200px; margin-left: -100px;">
+				<div class="progress progress-striped active">
+					<div class="progress-bar" style="width: 100%;"></div>
+				</div>
+			</div>
+		</div>
+		<!-- start: MAIN JAVASCRIPTS -->
+		<!--[if lt IE 9]>
+		<script src="__PLUGINS__/respond.min.js"></script>
+		<script src="__PLUGINS__/excanvas.min.js"></script>
+		<![endif]-->
+		<script src="__JS__/jquery-1.10.2.js"></script>
+		<script src="__PLUGINS__/jquery-ui/jquery-ui-1.10.2.custom.min.js"></script>
+		<script src="__PLUGINS__/bootstrap/js/bootstrap.min.js"></script>
+		<script src="__PLUGINS__/blockUI/jquery.blockUI.js"></script>
+		<script src="__PLUGINS__/iCheck/jquery.icheck.min.js"></script>
+		<script src="__PLUGINS__/perfect-scrollbar/src/jquery.mousewheel.js"></script>
+		<script src="__PLUGINS__/perfect-scrollbar/src/perfect-scrollbar.js"></script>
+		<script src="__JS__/main.js"></script>
+		<!-- end: MAIN JAVASCRIPTS -->
+		<!-- start: JAVASCRIPTS REQUIRED FOR THIS PAGE ONLY -->
+		<script src="__PLUGINS__/jquery-validation/dist/jquery.validate.min.js"></script>
+		<script src="__PLUGINS__/bootstrap-modal/js/bootstrap-modal.js"></script>
+		<script src="__PLUGINS__/bootstrap-modal/js/bootstrap-modalmanager.js"></script>
+		<script src="__JS__/login.js"></script>
+		<!-- end: JAVASCRIPTS REQUIRED FOR THIS PAGE ONLY -->
+		<script>
+			jQuery(document).ready(function() {
+				Main.init();
+				Login.init();
 
-		Copyright 2012 Muhammad Usman
-		Licensed under the Apache License v2.0
-		http://www.apache.org/licenses/LICENSE-2.0
+			});
 
-		http://usman.it
-		http://twitter.com/halalit_usman
-	-->
-	<meta charset="utf-8">
-	<title>STMALL 管理平台</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta name="description" content="Charisma, a fully featured, responsive, HTML5, Bootstrap admin template.">
-	<meta name="author" content="papersnake">
+			$(".form-login").submit(function() {
+				var modal = $('#modal-loading');
+				modal.modal();
+				var self = $(this);
+				$.post(self.attr("action"),self.serialize(),success,"json");
+				return false
 
-	<!-- The styles -->
-	<link id="bs-css" href="__CSS__/bootstrap-cerulean.css" rel="stylesheet">
-	<style type="text/css">
-	  body {
-		padding-bottom: 40px;
-	  }
-	  .sidebar-nav {
-		padding: 9px 0;
-	  }
-	</style>
-	<link href="__CSS__/bootstrap-responsive.css" rel="stylesheet">
-	<link href="__CSS__/charisma-app.css" rel="stylesheet">
-	<link href="__CSS__/main.css" rel="stylesheet">
-	<link href="__CSS__/jquery-ui-1.8.21.custom.css" rel="stylesheet">
-	<link href='__CSS__/fullcalendar.css' rel='stylesheet'>
-	<link href='__CSS__/fullcalendar.print.css' rel='stylesheet'  media='print'>
-	<link href='__CSS__/chosen.css' rel='stylesheet'>
-	<link href='__CSS__/uniform.default.css' rel='stylesheet'>
-	<link href='__CSS__/colorbox.css' rel='stylesheet'>
-	<link href='__CSS__/jquery.cleditor.css' rel='stylesheet'>
-	<link href='__CSS__/jquery.noty.css' rel='stylesheet'>
-	<link href='__CSS__/noty_theme_default.css' rel='stylesheet'>
-	<link href='__CSS__/elfinder.min.css' rel='stylesheet'>
-	<link href='__CSS__/elfinder.theme.css' rel='stylesheet'>
-	<link href='__CSS__/jquery.iphone.toggle.css' rel='stylesheet'>
-	<link href='__CSS__/opa-icons.css' rel='stylesheet'>
-	<link href='__CSS__/uploadify.css' rel='stylesheet'>
+				function success(data){
+					if(data.status){
+						window.location.href = data.url;
+					} else {
+						modal.modal('hide');
+						var form = $('.form-login');
+						var errorHandler = $('.errorHandler',form);
+						var errinfo = $('<span class="error-info">'+data.info+'</span>');
+						$('.error-info').remove();
+						errorHandler.append(errinfo);
+						errorHandler.show();
+						$(".reloadverify").click();
+					}
+				}
+			});
 
-	<!-- The HTML5 shim, for IE6-8 support of HTML5 elements -->
-	<!--[if lt IE 9]>
-	  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-	<![endif]-->
+			$(function(){
+				var verifyimg = $(".verifyimg").attr("src");
+				$(".reloadverify").click(function(){
+					if(verifyimg.indexOf('?')>0){
+						$(".verifyimg").attr("src", verifyimg+'&random'+Math.random());
+					}else{
+						$(".verifyimg").attr("src", verifyimg.replace(/\?.*$/,'')+'?'+Math.random());
+					}
+				});
+			});
 
-	<!-- The fav icon -->
-	<link rel="shortcut icon" href="__IMG__/favicon.ico">
-		
-</head>
-
-<body>
-		<div class="container-fluid">
-		<div class="row-fluid">
-		
-			<div class="row-fluid">
-				<div class="span12 center login-header">
-					<h2>STMALL 管理平台</h2>
-					<h3>吴江大润发厍星店商品在线管理平台</h3>
-				</div><!--/span-->
-			</div><!--/row-->
 			
-			<div class="row-fluid">
-				<div class="well span5 center login-box">
-					<div class="alert alert-info">
-						请用您的用户名和密码登录.
-					</div>
-					<div class="alert alert-error" style="display: none">
-						<button type="button" class="close" data-dismiss="alert">×</button>
-						密码错误
-					</div>
-					<form class="form-horizontal" action="{:U('login')}" method="post">
-						<fieldset>
-							<div class="input-prepend" title="Username" data-rel="tooltip">
-								<span class="add-on"><i class="icon-user"></i></span><input autofocus class="input-large span10" name="username" id="username" type="text" value="admin" />
-							</div>
-							<div class="clearfix"></div>
-
-							<div class="input-prepend input-append" title="Password" data-rel="tooltip">
-								<span class="add-on"><i class="icon-lock"></i></span><input class="input-large span10" name="password" id="password" type="password" value="24976904" />
-							</div>
-							<div class="clearfix"></div>
-
-							<div class="input-prepend input-append" title="verify" data-rel="tooltip">
-								<span class="add-on"><i class="icon-pencil"></i></span><input class="span5" name="verify" id="verify" type="text" value="" />
-								<span class="add-on"><a class="reloadverify" href="javascript:void(0)">换一张?</a></span>
-
-							</div>
-							<div class="clearfix"></div>
-
-							<div class="input-prepend">
-							<img class="verifyimg" src="{:U('Public/verify')}">
-							<div class="clearfix"></div>
-	
-							<div class="input-prepend">
-							<label class="remember" for="remember"><input type="checkbox" id="remember" />下一次自动登录</label>
-							</div>
-							<div class="clearfix"></div>
-
-							<p class="center span5">
-							<button type="submit" class="btn btn-primary">登录</button>
-							</p>
-						</fieldset>
-					</form>
-				</div><!--/span-->
-			</div><!--/row-->
-				</div><!--/fluid-row-->
-		
-	</div><!--/.fluid-container-->
-	<div class="modal hide fade" id="myModal" style="display:none;">
-		<img src="__IMG__/ajax-loaders/ajax-loader-7.gif" title="__IMG__/ajax-loaders/ajax-loader-7.gif">
-	</div>
-	<!-- external javascript
-	================================================== -->
-	<!-- Placed at the end of the document so the pages load faster -->
-
-	<!-- jQuery -->
-	<script src="__JS__/jquery-1.7.2.min.js"></script>
-	<!-- jQuery UI -->
-	<script src="__JS__/jquery-ui-1.8.21.custom.min.js"></script>
-	<!-- transition / effect library -->
-	<script src="__JS__/bootstrap-transition.js"></script>
-	<!-- alert enhancer library -->
-	<script src="__JS__/bootstrap-alert.js"></script>
-	<!-- modal / dialog library -->
-	<script src="__JS__/bootstrap-modal.js"></script>
-	<!-- custom dropdown library -->
-	<script src="__JS__/bootstrap-dropdown.js"></script>
-	<!-- scrolspy library -->
-	<script src="__JS__/bootstrap-scrollspy.js"></script>
-	<!-- library for creating tabs -->
-	<script src="__JS__/bootstrap-tab.js"></script>
-	<!-- library for advanced tooltip -->
-	<script src="__JS__/bootstrap-tooltip.js"></script>
-	<!-- popover effect library -->
-	<script src="__JS__/bootstrap-popover.js"></script>
-	<!-- button enhancer library -->
-	<script src="__JS__/bootstrap-button.js"></script>
-	<!-- accordion library (optional, not used in demo) -->
-	<script src="__JS__/bootstrap-collapse.js"></script>
-	<!-- carousel slideshow library (optional, not used in demo) -->
-	<script src="__JS__/bootstrap-carousel.js"></script>
-	<!-- autocomplete library -->
-	<script src="__JS__/bootstrap-typeahead.js"></script>
-	<!-- tour library -->
-	<script src="__JS__/bootstrap-tour.js"></script>
-	<!-- library for cookie management -->
-	<script src="__JS__/jquery.cookie.js"></script>
-	<!-- calander plugin -->
-	<script src='__JS__/fullcalendar.min.js'></script>
-	<!-- data table plugin -->
-	<script src='__JS__/jquery.dataTables.min.js'></script>
-
-	<!-- chart libraries start -->
-	<script src="__JS__/excanvas.js"></script>
-	<script src="__JS__/jquery.flot.min.js"></script>
-	<script src="__JS__/jquery.flot.pie.min.js"></script>
-	<script src="__JS__/jquery.flot.stack.js"></script>
-	<script src="__JS__/jquery.flot.resize.min.js"></script>
-	<!-- chart libraries end -->
-
-	<!-- select or dropdown enhancer -->
-	<script src="__JS__/jquery.chosen.min.js"></script>
-	<!-- checkbox, radio, and file input styler -->
-	<script src="__JS__/jquery.uniform.min.js"></script>
-	<!-- plugin for gallery image view -->
-	<script src="__JS__/jquery.colorbox.min.js"></script>
-	<!-- rich text editor library -->
-	<script src="__JS__/jquery.cleditor.min.js"></script>
-	<!-- notification plugin -->
-	<script src="__JS__/jquery.noty.js"></script>
-	<!-- file manager library -->
-	<script src="__JS__/jquery.elfinder.min.js"></script>
-	<!-- star rating plugin -->
-	<script src="__JS__/jquery.raty.min.js"></script>
-	<!-- for iOS style toggle switch -->
-	<script src="__JS__/jquery.iphone.toggle.js"></script>
-	<!-- autogrowing textarea plugin -->
-	<script src="__JS__/jquery.autogrow-textarea.js"></script>
-	<!-- multiple file upload plugin -->
-	<script src="__JS__/jquery.uploadify-3.1.min.js"></script>
-	<!-- history.js for cross-browser state change on ajax -->
-	<script src="__JS__/jquery.history.js"></script>
-	<!-- application script for Charisma demo -->
-	<script src="__JS__/charisma.js"></script>
-	
-	<script type="text/javascript">
-	$("form").submit(function() {
-		$("#myModal").modal('show').css({
-			width:'auto',
-			'margin-left':function(){
-				return -($(this).width()/2);
-			}
-		});
-		var self = $(this);
-		$.post(self.attr("action"),self.serialize(),success,"json");
-		return false
-
-		function success(data){
-			if(data.status){
-				window.location.href = data.url;
-			} else {
-				$("#myModal").modal('hide');
-				$(".login-box").prepend('<div class="alert alert-error" ><button type="button" class="close" data-dismiss="alert">×</button>'+data.info+'</div>')
-				$(".reloadverify").click();
-			}
-		}
-	});
-
-	$(function(){
-		var verifyimg = $(".verifyimg").attr("src");
-		$(".reloadverify").click(function(){
-			if(verifyimg.indexOf('?')>0){
-				$(".verifyimg").attr("src", verifyimg+'&random'+Math.random());
-			}else{
-				$(".verifyimg").attr("src", verifyimg.replace(/\?.*$/,'')+'?'+Math.random());
-			}
-		});
-	});
-	</script>
-		
-</body>
+		</script>
+	</body>
+	<!-- end: BODY -->
 </html>

@@ -1,25 +1,41 @@
 <extend name="Public/base" />
 
 <block name="body">
-<div class="row-fluid sortable">		
-				<div class="box span12">
-					<div class="box-header well" data-original-title>
-						<h2><i class="icon-barcode"></i> 分类管理</h2>
-						<div class="box-icon">
-							<a href="#" class="btn btn-setting btn-round"><i class="icon-cog"></i></a>
-							<a href="#" class="btn btn-minimize btn-round"><i class="icon-chevron-up"></i></a>
-							<a href="#" class="btn btn-close btn-round"><i class="icon-remove"></i></a>
+<div class="row">		
+				<div class="col-md-12">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<i class="icon-list-ol"></i> 分类管理
+							<div class="panel-tools">
+										<a class="btn btn-xs btn-link panel-collapse collapses" href="#">
+										</a>
+										<a class="btn btn-xs btn-link panel-config" href="#panel-config" data-toggle="modal">
+											<i class="icon-wrench"></i>
+										</a>
+										<a class="btn btn-xs btn-link panel-refresh" href="#">
+											<i class="icon-refresh"></i>
+										</a>
+										<a class="btn btn-xs btn-link panel-expand" href="#">
+											<i class="icon-resize-full"></i>
+										</a>
+										<a class="btn btn-xs btn-link panel-close" href="#">
+											<i class="icon-remove"></i>
+										</a>
+									</div>
 						</div>
-					</div>
-					<div class="box-content">
-						<div class="dd" id="nestable">
-							<ol class="dd-list buttons" id="cate_list">
-											
-							</ol>
+						<div class="panel-body">
+							<div class="dd" id="nestable">
+								<ol class="dd-list buttons" id="cate_list">
+												
+								</ol>
+							</div>
 						</div>
 					</div>
 				</div>
 </div>
+</block>
+<block name="scriptinclude">
+<script src="__PLUGINS__/nestable/jquery.nestable.js"></script>
 </block>
 <block name="script">
 <script src="__JS__/jquery.nestable.js"></script>
