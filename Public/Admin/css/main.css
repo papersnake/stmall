@@ -10,7 +10,7 @@
 body {
 	color: #000000;
 	direction: ltr;
-	font-family: 'Open+Sans', sans-serif, STXihei,"华文细黑","Mircosoft YaHei","微软雅黑",SimSun,"宋体";
+	font-family: 'Open+Sans',  STXihei,"华文细黑","Mircosoft YaHei","微软雅黑",SimSun,"宋体";
 	font-size: 13px;
 	padding: 0px !important;
 	margin: 0px !important;
@@ -36,7 +36,7 @@ a, a:focus, a:hover, a:active {
 }
 
 h1, h2, h3 {
-	font-family: 'Raleway', sans-serif, STXihei,"华文细黑","Mircosoft YaHei","微软雅黑",SimSun,"宋体";
+	font-family: 'Raleway',  STXihei,"华文细黑","Mircosoft YaHei","微软雅黑",SimSun,"宋体";
 }
 /* ---------------------------------------------------------------------- */
 /*	Forms
@@ -377,7 +377,7 @@ a.bricky:hover {
 .navbar > .container .navbar-brand, .logo {
 	padding: 14px 10px 12px;
 	margin-left: 0;
-	font-family: 'Raleway', sans-serif, STXihei,"华文细黑","Mircosoft YaHei","微软雅黑",SimSun,"宋体";
+	font-family: 'Raleway',  STXihei,"华文细黑","Mircosoft YaHei","微软雅黑",SimSun,"宋体";
 	font-size: 25px;
 }
 .navbar > .container .navbar-brand i, .logo i {
@@ -2003,7 +2003,7 @@ span.star:before {
 	margin: 20px 0 20px;
 }
 .page-header h1 {
-	font-family: 'Raleway', sans-serif, STXihei,"华文细黑","Mircosoft YaHei","微软雅黑",SimSun,"宋体";
+	font-family: 'Raleway',  STXihei,"华文细黑","Mircosoft YaHei","微软雅黑",SimSun,"宋体";
 	font-weight: 200;
 	letter-spacing: -1px;
 	margin: 0 0 15px;

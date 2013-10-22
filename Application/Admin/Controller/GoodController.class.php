@@ -25,5 +25,17 @@ class GoodController extends AdminController {
 		$this->display();
 	}
 
+	public function info()
+	{
+		$this->title = '商品信息';
+		$id          = I('get.id','');
+		if(empty($id)){
+			$this->error('商品ID不能为空');
+		}else{
+			$this->goodsinfo = M('Good')->field(true)->find($id);
+		}
+		$this->display();
+	}
+
 	
 }

@@ -1,0 +1,53 @@
+<extend name="Public/base" />
+
+<block name="body">
+<div class="row">
+				<div class="col-md-12">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<i class="icon-barcode"></i> 商品信息
+								<div class="panel-tools">
+										<a class="btn btn-xs btn-link panel-collapse collapses" href="#">
+										</a>
+										<a class="btn btn-xs btn-link panel-config" href="#panel-config" data-toggle="modal">
+											<i class="icon-wrench"></i>
+										</a>
+										<a class="btn btn-xs btn-link panel-refresh" href="#">
+											<i class="icon-refresh"></i>
+										</a>
+										<a class="btn btn-xs btn-link panel-expand" href="#">
+											<i class="icon-resize-full"></i>
+										</a>
+										<a class="btn btn-xs btn-link panel-close" href="#">
+											<i class="icon-remove"></i>
+										</a>
+									</div><!--end panel-tools-->
+						</div><!-- end panel-heading -->
+						<div class="panel-body">
+						<div class="row">
+							<div class="col-md-6">
+								<h1>{$goodsinfo.good_name}</h1><br/>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<div class="tabbable">
+									<ul class="nav nav-tabs tab-padding tab-space-3 tab-blue">
+										<li class="active"><a href="#good_info" data-toggle="tab">基本信息</a></li>
+										<li><a href="#good_pic" data-toggle="tab">商品图片</a></li>
+										<li><a href="#good_bz" data-toggle="tab">备注</a></li>
+									</ul>
+									<div class="tab-content">
+										<div class="tab-pane active" id="good_info">12</div>
+										<div class="tab-pane" id="good_pic">23</div>
+										<div class="tab-pane" id="good_bz">34</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						</div>
+					</div><!-- end panel -->
+				</div>
+				</div><!--end col-md-12 -->
+</div><!--end row-->
+</block>
