@@ -2,7 +2,7 @@
 // +----------------------------------------------------------------------
 // | ThinkPHP [ WE CAN DO IT JUST THINK IT ]
 // +----------------------------------------------------------------------
-// | Copyright (c) 2006-2012 http://thinkphp.cn All rights reserved.
+// | Copyright (c) 2006-2013 http://thinkphp.cn All rights reserved.
 // +----------------------------------------------------------------------
 // | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
 // +----------------------------------------------------------------------
@@ -55,13 +55,13 @@ return  array(
     'DEFAULT_FILTER'        =>  'htmlspecialchars', // 默认参数过滤方法 用于 $this->_get('变量名');$this->_post('变量名')...
 
     /* 数据库设置 */
-    'DB_TYPE'               =>  'mysql',     // 数据库类型
-    'DB_HOST'               =>  'localhost', // 服务器地址
+    'DB_TYPE'               =>  '',     // 数据库类型
+    'DB_HOST'               =>  '', // 服务器地址
     'DB_NAME'               =>  '',          // 数据库名
-    'DB_USER'               =>  'root',      // 用户名
+    'DB_USER'               =>  '',      // 用户名
     'DB_PWD'                =>  '',          // 密码
     'DB_PORT'               =>  '',        // 端口
-    'DB_PREFIX'             =>  'think_',    // 数据库表前缀
+    'DB_PREFIX'             =>  '',    // 数据库表前缀
     'DB_FIELDTYPE_CHECK'    =>  false,       // 是否进行字段类型检查
     'DB_FIELDS_CACHE'       =>  true,        // 启用字段缓存
     'DB_CHARSET'            =>  'utf8',      // 数据库编码默认采用utf8
@@ -128,8 +128,8 @@ return  array(
 	'URL_ROUTE_RULES'       =>	array(), // 默认路由规则 针对模块
 
     /* 系统变量名称设置 */
-    'VAR_MODULE'            =>  'm',     // 默认分组获取变量
-    'VAR_CONTROLLER'        =>  'c',		// 默认模块获取变量
+    'VAR_MODULE'            =>  'm',     // 默认模块获取变量
+    'VAR_CONTROLLER'        =>  'c',		// 默认控制器获取变量
     'VAR_ACTION'            =>  'a',		// 默认操作获取变量
     'VAR_AJAX_SUBMIT'       =>  'ajax',  // 默认的AJAX提交变量
 	'VAR_JSONP_HANDLER'     =>  'callback',

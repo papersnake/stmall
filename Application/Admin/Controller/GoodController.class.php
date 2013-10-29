@@ -37,5 +37,8 @@ class GoodController extends AdminController {
 		$this->display();
 	}
 
+	public function upload(){
+		
+	}
 	
 }
