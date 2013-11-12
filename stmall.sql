@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50612
 File Encoding         : 65001
 
-Date: 2013-10-19 10:46:39
+Date: 2013-11-12 15:28:53
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -22435,6 +22435,26 @@ CREATE TABLE `stmall_member` (
 -- ----------------------------
 
 -- ----------------------------
+-- Table structure for `stmall_picture`
+-- ----------------------------
+DROP TABLE IF EXISTS `stmall_picture`;
+CREATE TABLE `stmall_picture` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键id自增',
+  `good_id` int(10) NOT NULL,
+  `path` varchar(255) NOT NULL DEFAULT '' COMMENT '路径',
+  `url` varchar(255) NOT NULL DEFAULT '' COMMENT '图片链接',
+  `md5` char(32) NOT NULL COMMENT '文件md5',
+  `sha1` char(40) NOT NULL COMMENT '文件 sha1编码',
+  `status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '状态',
+  `create_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=21 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+
+-- ----------------------------
+-- Records of stmall_picture
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for `stmall_user`
 -- ----------------------------
 DROP TABLE IF EXISTS `stmall_user`;
@@ -22459,7 +22479,7 @@ CREATE TABLE `stmall_user` (
 -- ----------------------------
 -- Records of stmall_user
 -- ----------------------------
-INSERT INTO `stmall_user` VALUES ('3', 'admin', '8acdb911440afa21b4c8834be47bdb88', '', '', '0', '0', '1381826865', '2130706433', '0', '1');
+INSERT INTO `stmall_user` VALUES ('3', 'admin', '8acdb911440afa21b4c8834be47bdb88', '', '', '0', '0', '1384233314', '2130706433', '0', '1');
 
 -- ----------------------------
 -- Table structure for `think_data`

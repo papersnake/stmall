@@ -5,6 +5,7 @@ return array(
 	'DATA_AUTH_KEY'   => 'Y,y8Je9Exs/Wb_~RtmaA=dMV%|IOQD!g:;q?(20u',
 	'LOG_RECORD'      => true,
 	'URL_MODEL'       => '2',
+	'DEFAULT_FILTER'  => 'htmlspecialchars',
 	/* 数据库配置 */
 	'DB_TYPE'         => 'mysql', // 数据库类型
 	'DB_HOST'         => '127.0.0.1', // 服务器地址

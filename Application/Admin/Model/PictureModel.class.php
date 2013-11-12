@@ -19,18 +19,24 @@ class PictureModel extends Model{
 		return $this->field(true)->where($map)->find();
 	}
 
-	public function upload($files, $setting, $driver = 'Local', $config = null){
-		$setting['callback'] = array($this,'isFile');
-		$upload              = new Upload($setting,$driver,$config);
-		$info                = $upload->upload($files);
+	public function upload($goodid = null, $files, $setting, $driver = 'Local', $config = null){
 
+		if(!$goodid){
+			$this->error = '商品ID不能为空!';
+		}
+
+		$setting['callback'] = array($this,'isFile');
+		$Upload              = new Upload($setting,$driver,$config);
+		$Upload->savePath    = '/'.$goodid.'/';
+		$info                = $Upload->upload($files);
 		if($info){
 			foreach ($info as $key => &$value) {
 				if(isset($value['id']) && is_numeric($value['id'])){
 					contiune;
 				}
 
-				$value['path'] = substr($setting['rootPath'],1).$value['savepath'].$value['savename'];
+				$value['good_id'] = $goodid;
+				$value['path']    = substr($setting['rootPath'],1).$value['savepath'].$value['savename'];
 				if($this->create($value) && ($id = $this->add()))
 				{
 					$value['id'] = $id;
