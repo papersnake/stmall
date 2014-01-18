@@ -57,7 +57,7 @@ class Model {
     // 是否批处理验证
     protected $patchValidate    =   false;
     // 链操作方法列表
-    protected $methods          =   array('table','order','alias','having','group','lock','distinct','auto','filter','validate','result','bind','token');
+    protected $methods          =   array('table','order','alias','having','group','lock','distinct','auto','filter','validate','result','token');
 
     /**
      * 架构函数
@@ -92,7 +92,7 @@ class Model {
         // 数据库初始化操作
         // 获取数据库操作对象
         // 当前模型有独立的数据库连接信息
-        $this->db(0,empty($this->connection)?$connection:$this->connection);
+        $this->db(0,empty($this->connection)?$connection:$this->connection,true);
     }
 
     /**
@@ -110,6 +110,7 @@ class Model {
                 $fields = F('_fields/'.strtolower($db.'.'.$this->name));
                 if($fields) {
                     $this->fields   =   $fields;
+                    $this->pk       =   $fields['_pk'];
                     return ;
                 }
             }
@@ -136,6 +137,7 @@ class Model {
             $type[$key]     =   $val['type'];
             if($val['primary']) {
                 $this->pk   =   $key;
+                $this->fields['_pk']   =   $key;
                 if($val['autoinc']) $this->autoinc   =   true;
             }
         }
@@ -485,6 +487,15 @@ class Model {
         }
         // 分析表达式
         $options    =  $this->_parseOptions($options);
+        // 判断查询缓存
+        if(isset($options['cache'])){
+            $cache  =   $options['cache'];
+            $key    =   is_string($cache['key'])?$cache['key']:md5(serialize($options));
+            $data   =   S($key,'',$cache);
+            if(false !== $data){
+                return $data;
+            }
+        }        
         $resultSet  = $this->db->select($options);
         if(false === $resultSet) {
             return false;
@@ -494,6 +505,9 @@ class Model {
         }
         $resultSet  =   array_map(array($this,'_read_data'),$resultSet);
         $this->_after_select($resultSet,$options);
+        if(isset($cache)){
+            S($key,$resultSet,$cache);
+        }           
         return $resultSet;
     }
     // 查询成功后的回调方法
@@ -616,6 +630,16 @@ class Model {
         $options['limit']   =   1;
         // 分析表达式
         $options            =   $this->_parseOptions($options);
+        // 判断查询缓存
+        if(isset($options['cache'])){
+            $cache  =   $options['cache'];
+            $key    =   is_string($cache['key'])?$cache['key']:md5(serialize($options));
+            $data   =   S($key,'',$cache);
+            if(false !== $data){
+                $this->data     =   $data;
+                return $data;
+            }
+        }
         $resultSet          =   $this->db->select($options);
         if(false === $resultSet) {
             return false;
@@ -630,6 +654,9 @@ class Model {
             return $this->returnResult($data,$this->options['result']);
         }
         $this->data     =   $data;
+        if(isset($cache)){
+            S($key,$data,$cache);
+        }
         return $this->data;
     }
     // 查询成功的回调方法
@@ -726,6 +753,15 @@ class Model {
     public function getField($field,$sepa=null) {
         $options['field']       =   $field;
         $options                =   $this->_parseOptions($options);
+        // 判断查询缓存
+        if(isset($options['cache'])){
+            $cache  =   $options['cache'];
+            $key    =   is_string($cache['key'])?$cache['key']:md5($sepa.serialize($options));
+            $data   =   S($key,'',$cache);
+            if(false !== $data){
+                return $data;
+            }
+        }        
         $field                  =   trim($field);
         if(strpos($field,',')) { // 多字段
             if(!isset($options['limit'])){
@@ -747,6 +783,9 @@ class Model {
                         $cols[$name]   =  is_string($sepa)?implode($sepa,$result):$result;
                     }
                 }
+                if(isset($cache)){
+                    S($key,$cols,$cache);
+                }
                 return $cols;
             }
         }else{   // 查找一条记录
@@ -756,10 +795,19 @@ class Model {
             }
             $result = $this->db->select($options);
             if(!empty($result)) {
-                if(true !== $sepa && 1==$options['limit']) return reset($result[0]);
+                if(true !== $sepa && 1==$options['limit']) {
+                    $data   =   reset($result[0]);
+                    if(isset($cache)){
+                        S($key,$data,$cache);
+                    }            
+                    return $data;
+                }
                 foreach ($result as $val){
                     $array[]    =   $val[$field];
                 }
+                if(isset($cache)){
+                    S($key,$array,$cache);
+                }                
                 return $array;
             }
         }
@@ -945,7 +993,7 @@ class Model {
                         default: // 默认作为字符串填充
                             $data[$auto[0]] = $auto[1];
                     }
-                    if(false === $data[$auto[0]] )   unset($data[$auto[0]]);
+                    if(isset($data[$auto[0]]) && false === $data[$auto[0]] )   unset($data[$auto[0]]);
                 }
             }
         }
@@ -1187,16 +1235,16 @@ class Model {
      * @access public
      * @param integer $linkNum  连接序号
      * @param mixed $config  数据库连接信息
-     * @param array $params  模型参数
+     * @param boolean $force 强制重新连接
      * @return Model
      */
-    public function db($linkNum='',$config='',$params=array()){
-        if(''===$linkNum && $this->db) {
+    public function db($linkNum='',$config='',$force=false) {
+        if('' === $linkNum && $this->db) {
             return $this->db;
         }
-        static $_linkNum    =   array();
+
         static $_db = array();
-        if(!isset($_db[$linkNum]) || (isset($_db[$linkNum]) && $config && $_linkNum[$linkNum]!=$config) ) {
+        if(!isset($_db[$linkNum]) || $force ) {
             // 创建一个新的实例
             if(!empty($config) && is_string($config) && false === strpos($config,'/')) { // 支持读取配置参数
                 $config  =  C($config);
@@ -1207,14 +1255,7 @@ class Model {
             unset($_db[$linkNum]);
             return ;
         }
-        if(!empty($params)) {
-            if(is_string($params))    parse_str($params,$params);
-            foreach ($params as $name=>$value){
-                $this->setProperty($name,$value);
-            }
-        }
-        // 记录连接信息
-        $_linkNum[$linkNum] =   $config;
+
         // 切换数据库连接
         $this->db   =    $_db[$linkNum];
         $this->_after_db();
@@ -1345,12 +1386,13 @@ class Model {
      */
     public function getDbFields(){
         if(isset($this->options['table'])) {// 动态指定表名
-            $fields     =   $this->db->getFields($this->options['table']);
+            $array      =   explode(' ',$this->options['table']);
+            $fields     =   $this->db->getFields($array[0]);
             return  $fields?array_keys($fields):false;
         }
         if($this->fields) {
             $fields     =  $this->fields;
-            unset($fields['_type']);
+            unset($fields['_type'],$fields['_pk']);
             return $fields;
         }
         return false;
@@ -1381,13 +1423,14 @@ class Model {
      * 查询SQL组装 join
      * @access public
      * @param mixed $join
+     * @param string $type JOIN类型
      * @return Model
      */
-    public function join($join) {
+    public function join($join,$type='INNER') {
         if(is_array($join)) {
             $this->options['join']      =   $join;
         }elseif(!empty($join)) {
-            $this->options['join'][]    =   $join;
+            $this->options['join'][]    =   false !== stripos($join,'JOIN')? $join : $type.' JOIN '.$join;
         }
         return $this;
     }
@@ -1559,6 +1602,29 @@ class Model {
      */
     public function comment($comment){
         $this->options['comment'] =   $comment;
+        return $this;
+    }
+
+    /**
+     * 参数绑定
+     * @access public
+     * @param string $key  参数名
+     * @param mixed $value  绑定的变量及绑定参数
+     * @return Model
+     */
+    public function bind($key,$value=false) {
+        if(is_array($key)){
+            $this->options['bind'] =    $key;
+        }else{
+            $num =  func_num_args();
+            if($num>2){
+                $params =   func_get_args();
+                array_shift($params);
+                $this->options['bind'][$key] =  $params;
+            }else{
+                $this->options['bind'][$key] =  $value;
+            }        
+        }
         return $this;
     }
 

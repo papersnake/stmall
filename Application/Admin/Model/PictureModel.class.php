@@ -3,6 +3,9 @@
 namespace Admin\Model;
 use Think\Model;
 use COM\Upload;
+use ORG\Util;
+use Think\Image;
+use Think\Image\Driver\ImageGd;
 
 class PictureModel extends Model{
 	protected $_auto = array(
@@ -37,6 +40,11 @@ class PictureModel extends Model{
 
 				$value['good_id'] = $goodid;
 				$value['path']    = substr($setting['rootPath'],1).$value['savepath'].$value['savename'];
+				$thumbname = substr($setting['rootPath'],1).$value['savepath'].'thumb_'.$value['savename'];
+				$Image = new Image();
+
+				//$Image.thumb($value['path'],$thumbname);
+				//\ORG\Util\Image::thumb($value['path'],$thumbname);
 				if($this->create($value) && ($id = $this->add()))
 				{
 					$value['id'] = $id;

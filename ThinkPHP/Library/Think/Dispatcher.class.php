@@ -37,7 +37,8 @@ class Dispatcher {
         if(C('APP_SUB_DOMAIN_DEPLOY')) {
             $rules      = C('APP_SUB_DOMAIN_RULES');
             if(isset($rules[$_SERVER['HTTP_HOST']])) { // 完整域名或者IP配置
-                $rule = $rules[$_SERVER['HTTP_HOST']];
+                define('APP_DOMAIN',$_SERVER['HTTP_HOST']); // 当前完整域名
+                $rule = $rules[APP_DOMAIN];
             }else{
                 if(strpos(C('APP_DOMAIN_SUFFIX'),'.')){ // com.cn net.cn 
                     $domain = array_slice(explode('.', $_SERVER['HTTP_HOST']), 0, -3);
@@ -125,12 +126,14 @@ class Dispatcher {
             $paths      =   explode($depr,__INFO__,2);
             $allowList  =   C('MODULE_ALLOW_LIST');
             $module     =   preg_replace('/\.' . __EXT__ . '$/i', '',$paths[0]);
-            if( empty($allowList) || (is_array($allowList) && in_array($module, $allowList))){
+            if( empty($allowList) || (is_array($allowList) && in_array_case($module, $allowList))){
                 $_GET[$varModule]       =   $module;
                 $_SERVER['PATH_INFO']   =   isset($paths[1])?$paths[1]:'';     
-            };
+            }else{
+                $_SERVER['PATH_INFO'] = __INFO__;
+            }
         }else{
-            $_SERVER['PATH_INFO'] = trim($_SERVER['PATH_INFO'],'/');
+            $_SERVER['PATH_INFO'] = __INFO__;
         }
 
         // URL常量
@@ -139,7 +142,7 @@ class Dispatcher {
         // 获取模块名称
         define('MODULE_NAME', self::getModule($varModule));
         // 检测模块是否存在
-        if( MODULE_NAME && (!in_array(MODULE_NAME,C('MODULE_DENY_LIST')) || $domainModule ) && is_dir(APP_PATH.MODULE_NAME)){
+        if( MODULE_NAME && (!in_array_case(MODULE_NAME,C('MODULE_DENY_LIST')) || $domainModule ) && is_dir(APP_PATH.MODULE_NAME)){
             
             // 定义当前模块路径
             define('MODULE_PATH', APP_PATH.MODULE_NAME.'/');
@@ -149,6 +152,10 @@ class Dispatcher {
             // 加载模块配置文件
             if(is_file(MODULE_PATH.'Conf/config.php'))
                 C(include MODULE_PATH.'Conf/config.php');
+            // 加载应用模式对应的配置文件
+            if('common' != APP_MODE && is_file(MODULE_PATH.'Conf/config_'.APP_MODE.'.php'))
+                C(include MODULE_PATH.'Conf/config_'.APP_MODE.'.php');
+
             // 加载模块别名定义
             if(is_file(MODULE_PATH.'Conf/alias.php'))
                 Think::addMap(include MODULE_PATH.'Conf/alias.php');
@@ -165,20 +172,17 @@ class Dispatcher {
         }
         if(!IS_CLI){
             $urlMode        =   C('URL_MODEL');
-            if($urlMode == URL_COMPAT ){
-                // 兼容模式判断
+            if($urlMode == URL_COMPAT ){// 兼容模式判断
                 define('PHP_FILE',_PHP_FILE_.'?'.$varPath.'=');
             }elseif($urlMode == URL_REWRITE ) {
-                //当前项目地址
                 $url    =   dirname(_PHP_FILE_);
                 if($url == '/' || $url == '\\')
                     $url    =   '';
                 define('PHP_FILE',$url);
             }else {
-                //当前项目地址
                 define('PHP_FILE',_PHP_FILE_);
             }
-            // 当前项目地址
+            // 当前应用地址
             define('__APP__',strip_tags(PHP_FILE));
             // 模块URL地址
             $moduleName    =   defined('MODULE_ALIAS')?MODULE_ALIAS:MODULE_NAME;
@@ -200,7 +204,7 @@ class Dispatcher {
             }
 
             $depr = C('URL_PATHINFO_DEPR');
-            $paths = explode($depr,$_SERVER['PATH_INFO']);
+            $paths = explode($depr,trim($_SERVER['PATH_INFO'],$depr));
 
             if(!isset($_GET[$varController])) {// 获取控制器
                 if(C('CONTROLLER_LEVEL')>1){// 控制器层次

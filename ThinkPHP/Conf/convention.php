@@ -11,14 +11,13 @@
 
 /**
  * ThinkPHP惯例配置文件
- * 该文件请不要修改，如果要覆盖惯例配置的值，可在项目配置文件中设定和惯例不符的配置项
+ * 该文件请不要修改，如果要覆盖惯例配置的值，可在应用配置文件中设定和惯例不符的配置项
  * 配置名称大小写任意，系统会统一转换成小写
  * 所有配置参数都可以在生效前动态改变
  */
 defined('THINK_PATH') or exit();
 return  array(
     /* 应用设定 */
-    'APP_STATUS'            =>  'debug',  // 应用调试模式状态 调试模式开启后有效 默认为debug 可扩展 并自动加载对应的配置文件
     'APP_FILE_CASE'         =>  false,   // 是否检查文件的大小写 对Windows平台有效
     'APP_SUB_DOMAIN_DEPLOY' =>  false,   // 是否开启子域名部署
     'APP_SUB_DOMAIN_RULES'  =>  array(), // 子域名部署规则
@@ -29,7 +28,7 @@ return  array(
     'CONTROLLER_LEVEL'      =>  1,
 
     /* Cookie设置 */
-    'COOKIE_EXPIRE'         =>  0,    // Coodie有效期
+    'COOKIE_EXPIRE'         =>  0,    // Cookie有效期
     'COOKIE_DOMAIN'         =>  '',      // Cookie有效域名
     'COOKIE_PATH'           =>  '/',     // Cookie路径
     'COOKIE_PREFIX'         =>  '',      // Cookie前缀 避免冲突
@@ -68,6 +67,7 @@ return  array(
     'DB_SQL_BUILD_QUEUE'    =>  'file',   // SQL缓存队列的缓存方式 支持 file xcache和apc
     'DB_SQL_BUILD_LENGTH'   =>  20, // SQL缓存的队列长度
     'DB_SQL_LOG'            =>  false, // SQL执行日志记录
+    'DB_BIND_PARAM'         =>  false, // 数据库写入数据自动参数绑定
 
     /* 数据缓存设置 */
     'DATA_CACHE_TIME'       =>  0,      // 数据缓存有效期 0表示永久缓存
@@ -84,6 +84,7 @@ return  array(
     'ERROR_PAGE'            =>  '',	// 错误定向页面
     'SHOW_ERROR_MSG'        =>  false,    // 显示错误信息
     'TRACE_EXCEPTION'       =>  false,   // TRACE错误信息是否抛异常 针对trace方法 
+    'TRACE_MAX_RECORD'      =>  100,    // 每个级别的错误信息 最大记录数
 
     /* 日志设置 */
     'LOG_RECORD'            =>  false,   // 默认不记录日志
@@ -134,7 +135,8 @@ return  array(
     'VAR_TEMPLATE'          =>  't',    // 默认模板切换变量
     'VAR_FILTERS'           =>  'filter_exp',     // 全局系统变量的默认过滤方法 多个用逗号分割
 
-    'HTTP_CACHE_CONTROL'    =>  'private', // 网页缓存控制
-    'CHECK_APP_DIR'         =>  true, //是否检查项目目录是否创建
-
+    'HTTP_CACHE_CONTROL'    =>  'private',  // 网页缓存控制
+    'CHECK_APP_DIR'         =>  true,       // 是否检查应用目录是否创建
+    'FILE_UPLOAD_TYPE'      =>  'Local',    // 文件上传方式
+    'DATA_CRYPT_TYPE'       =>  'Think',    // 数据加密方式
 );

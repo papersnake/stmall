@@ -8,13 +8,10 @@
 // +----------------------------------------------------------------------
 // | Author: liu21st <liu21st@gmail.com>
 // +----------------------------------------------------------------------
-
+namespace Org\Net;
 /**
  *  IP 地理位置查询类 修改自 CoolCode.CN
  *  由于使用UTF8编码 如果使用纯真IP地址库的话 需要对返回结果进行编码转换
- * @category   ORG
- * @package  ORG
- * @subpackage  Net
  * @author    liu21st <liu21st@gmail.com>
  */
 class IpLocation {

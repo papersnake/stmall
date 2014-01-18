@@ -20,7 +20,7 @@ class App {
      * @return void
      */
     static public function init() {
-        // 加载动态项目公共文件和配置
+        // 加载动态应用公共文件和配置
         load_ext_file(COMMON_PATH);
         // URL调度
         Dispatcher::dispatch();
@@ -50,11 +50,32 @@ class App {
      * @return void
      */
     static public function exec() {
+    
         if(!preg_match('/^[A-Za-z](\/|\w)*$/',CONTROLLER_NAME)){ // 安全检测
             $module  =  false;
+        }elseif(C('ACTION_BIND_CLASS')){
+            // 操作绑定到类：模块\Controller\控制器\操作
+            if(is_dir(MODULE_PATH.C('DEFAULT_C_LAYER').'/'.CONTROLLER_NAME)){
+                $namespace  =   MODULE_NAME.'\\'.C('DEFAULT_C_LAYER').'\\'.CONTROLLER_NAME.'\\';
+            }else{
+                // 空控制器
+                $namespace  =   MODULE_NAME.'\\'.C('DEFAULT_C_LAYER').'\\_empty\\';                    
+            }
+            $actionName     =   strtolower(ACTION_NAME);
+            if(class_exists($namespace.$actionName)){
+                $class   =  $namespace.$actionName;
+            }elseif(class_exists($namespace.'_empty')){
+                // 空操作
+                $class   =  $namespace.'_empty';
+            }else{
+                E(L('_ERROR_ACTION_').':'.ACTION_NAME);
+            }
+            $module  =  new $class;
+            // 操作绑定到类后 固定执行run入口
+            $action  =  'run';
         }else{
-            //创建Action控制器实例
-            $module  =  A(CONTROLLER_NAME);
+            //创建控制器实例
+            $module  =  A(CONTROLLER_NAME);                
         }
 
         if(!$module) {
@@ -63,15 +84,18 @@ class App {
                 exit(base64_decode(App::logo()));
             }
 
-            // 是否定义Empty模块
+            // 是否定义Empty控制器
             $module = A('Empty');
             if(!$module){
                 E(L('_CONTROLLER_NOT_EXIST_').':'.CONTROLLER_NAME);
             }
         }
+
         // 获取当前操作名 支持动态路由
-        $action = C('ACTION_NAME')?C('ACTION_NAME'):ACTION_NAME;
-        $action .=  C('ACTION_SUFFIX');
+        if(!isset($action)){
+            $action     =   C('ACTION_NAME')?C('ACTION_NAME'):ACTION_NAME;
+            $action    .=   C('ACTION_SUFFIX');  
+        }
         try{
             if(!preg_match('/^[A-Za-z](\w)*$/',$action)){
                 // 非法操作
@@ -143,10 +167,10 @@ class App {
      * @return void
      */
     static public function run() {
-        // 项目初始化标签
+        // 应用初始化标签
         Hook::listen('app_init');
         App::init();
-        // 项目开始标签
+        // 应用开始标签
         Hook::listen('app_begin');
         // Session初始化
         if(!IS_CLI){
@@ -155,7 +179,7 @@ class App {
         // 记录应用初始化时间
         G('initTime');
         App::exec();
-        // 项目结束标签
+        // 应用结束标签
         Hook::listen('app_end');
         return ;
     }

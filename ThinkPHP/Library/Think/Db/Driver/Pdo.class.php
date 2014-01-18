@@ -48,13 +48,13 @@ class Pdo extends Db{
             try{
                 $this->linkID[$linkNum] = new \PDO( $config['dsn'], $config['username'], $config['password'],$config['params']);
             }catch (\PDOException $e) {
-                throw_exception($e->getMessage());
+                E($e->getMessage());
             }
             // 因为PDO的连接切换可能导致数据库类型不同，因此重新获取下当前的数据库类型
             $this->dbType = $this->_getDsnType($config['dsn']);
             if(in_array($this->dbType,array('MSSQL','ORACLE','IBASE','OCI'))) {
                 // 由于PDO对于以上的数据库支持不够完美，所以屏蔽了 如果仍然希望使用PDO 可以注释下面一行代码
-                throw_exception('由于目前PDO暂时不能完美支持'.$this->dbType.' 请使用官方的'.$this->dbType.'驱动');
+                E('由于目前PDO暂时不能完美支持'.$this->dbType.' 请使用官方的'.$this->dbType.'驱动');
             }
             $this->linkID[$linkNum]->exec('SET NAMES '.C('DB_CHARSET'));
             // 标记连接成功
@@ -94,8 +94,10 @@ class Pdo extends Db{
         G('queryStartTime');
         $this->PDOStatement = $this->_linkID->prepare($str);
         if(false === $this->PDOStatement)
-            throw_exception($this->error());
-        $result =   $this->PDOStatement->execute($bind);
+            E($this->error());
+        // 参数绑定
+        $this->bindPdoParam($bind);
+        $result =   $this->PDOStatement->execute();
         $this->debug();
         if ( false === $result ) {
             $this->error();
@@ -120,13 +122,12 @@ class Pdo extends Db{
             $this->queryStr     .=   '[ '.print_r($bind,true).' ]';
         }        
         $flag = false;
-        if($this->dbType == 'OCI')
-        {
+        if($this->dbType == 'OCI') {
             if(preg_match("/^\s*(INSERT\s+INTO)\s+(\w+)\s+/i", $this->queryStr, $match)) {
                 $this->table = C("DB_SEQUENCE_PREFIX").str_ireplace(C("DB_PREFIX"), "", $match[2]);
                 $flag = (boolean)$this->query("SELECT * FROM user_sequences WHERE sequence_name='" . strtoupper($this->table) . "'");
             }
-        }//modify by wyfeng at 2009.08.28
+        }
         //释放前次的查询结果
         if ( !empty($this->PDOStatement) ) $this->free();
         N('db_write',1);
@@ -134,9 +135,11 @@ class Pdo extends Db{
         G('queryStartTime');
         $this->PDOStatement = $this->_linkID->prepare($str);
         if(false === $this->PDOStatement) {
-            throw_exception($this->error());
+            E($this->error());
         }
-        $result = $this->PDOStatement->execute($bind);
+        // 参数绑定
+        $this->bindPdoParam($bind);        
+        $result = $this->PDOStatement->execute();
         $this->debug();
         if ( false === $result) {
             $this->error();
@@ -148,6 +151,23 @@ class Pdo extends Db{
             }
             return $this->numRows;
         }
+    }
+
+    /**
+     * 参数绑定
+     * @access protected
+     * @return void
+     */
+    protected function bindPdoParam($bind){
+        // 参数绑定
+        foreach($bind as $key=>$val){
+            if(is_array($val)){
+              array_unshift($val,$key);
+            }else{
+              $val  = array($key,$val);
+            }
+            call_user_func_array(array($this->PDOStatement,'bindParam'),$val);
+        }      
     }
 
     /**
@@ -297,7 +317,7 @@ class Pdo extends Db{
                 break;
             case 'IBASE':
                 // 暂时不支持
-                throw_exception(L('_NOT_SUPPORT_DB_').':IBASE');
+                E(L('_NOT_SUPPORT_DB_').':IBASE');
                 break;
             case 'SQLITE':
                 $sql   = "SELECT name FROM sqlite_master WHERE type='table' "

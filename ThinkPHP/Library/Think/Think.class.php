@@ -27,12 +27,12 @@ class Think {
      * @return void
      */
     static public function start() {
+      // 注册AUTOLOAD方法
+      spl_autoload_register('Think\Think::autoload');      
       // 设定错误和异常处理
       register_shutdown_function('Think\Think::fatalError');
       set_error_handler('Think\Think::appError');
       set_exception_handler('Think\Think::appException');
-      // 注册AUTOLOAD方法
-      spl_autoload_register('Think\Think::autoload');
 
       // 初始化文件存储方式
       Storage::connect(STORAGE_TYPE);
@@ -45,7 +45,7 @@ class Think {
               Storage::unlink($runtimefile,'runtime');
           $content =  '';
           // 读取应用模式
-          $mode   =   include is_file(COMMON_PATH.'Conf/core.php')?COMMON_PATH.'Conf/core.php':THINK_PATH.'Conf/Mode/'.APP_MODE.'.php';
+          $mode   =   include is_file(CONF_PATH.'core.php')?CONF_PATH.'core.php':THINK_PATH.'Conf/Mode/'.APP_MODE.'.php';
           // 加载核心文件
           foreach ($mode['core'] as $file){
               if(is_file($file)) {
@@ -54,30 +54,33 @@ class Think {
               }
           }
 
-          // 加载配置文件
+          // 加载应用模式配置文件
           foreach ($mode['config'] as $key=>$file){
               is_numeric($key)?C(include $file):C($key,include $file);
           }
 
-          // 加载别名定义
-          foreach($mode['alias'] as $alias){
-              self::addMap(is_array($alias)?$alias:(file_exists($alias)?include $alias:array()));
+          // 读取当前应用模式对应的配置文件
+          if('common' != APP_MODE && is_file(CONF_PATH.'config_'.APP_MODE.'.php'))
+              C(include CONF_PATH.'config_'.APP_MODE.'.php');  
+
+          // 加载模式别名定义
+          if(isset($mode['alias'])){
+              self::addMap(is_array($mode['alias'])?$mode['alias']:include $mode['alias']);
           }
-                
-          // 加载模式系统行为定义
-          if(isset($mode['extends'])) {
-              Hook::import(is_array($mode['extends'])?$mode['extends']:include $mode['extends']);
+
+          // 加载应用别名定义文件
+          if(is_file(CONF_PATH.'alias.php'))
+              self::addMap(include CONF_PATH.'alias.php');
+
+          // 加载模式行为定义
+          if(isset($mode['tags'])) {
+              Hook::import(is_array($mode['tags'])?$mode['tags']:include $mode['tags']);
           }
 
           // 加载应用行为定义
-          if(isset($mode['tags'])) {
-              if(is_array($mode['tags'])){
-                $tags=$mode['tags'];
-              }else{
-                $tags=file_exists($mode['tags'])?include $mode['tags']:array();
-              }
-              Hook::import($tags);
-          }
+          if(is_file(CONF_PATH.'tags.php'))
+              // 允许应用增加开发模式配置定义
+              Hook::import(include CONF_PATH.'tags.php');   
 
           // 加载框架底层语言包
           L(include THINK_PATH.'Lang/'.strtolower(C('DEFAULT_LANG')).'.php');
@@ -89,21 +92,22 @@ class Think {
           }else{
             // 调试模式加载系统默认的配置文件
             C(include THINK_PATH.'Conf/debug.php');
-            // 读取调试模式的应用状态
-            $status  =  C('APP_STATUS');
-            // 加载对应的项目配置文件
-            if(is_file(COMMON_PATH.'Conf/'.$status.'.php'))
-                // 允许项目增加开发模式配置定义
-                C(include COMMON_PATH.'Conf/'.$status.'.php');          
+            // 读取应用调试配置文件
+            if(is_file(CONF_PATH.'debug.php'))
+                C(include CONF_PATH.'debug.php');           
           }
       }
+
+      // 读取当前应用状态对应的配置文件
+      if(APP_STATUS && is_file(CONF_PATH.APP_STATUS.'.php'))
+          C(include CONF_PATH.APP_STATUS.'.php');   
 
       // 设置系统时区
       date_default_timezone_set(C('DEFAULT_TIMEZONE'));
 
-      // 检查项目目录结构 如果不存在则自动创建
-      if(C('CHECK_APP_DIR') && !is_dir(RUNTIME_PATH)) {
-          // 创建项目目录结构
+      // 检查应用目录结构 如果不存在则自动创建
+      if(C('CHECK_APP_DIR') && !is_dir(LOG_PATH)) {
+          // 创建应用目录结构
           require THINK_PATH.'Common/build.php';
       }
 
@@ -132,18 +136,16 @@ class Think {
         if(isset(self::$_map[$class])) {
             include self::$_map[$class];
         }else{
-          $name     = strstr($class, '\\', true);
-          if(is_dir(LIB_PATH.$name)){ // Library目录下面的命名空间自动定位
-              $path   =   LIB_PATH;
-          }else{ 
-              $namespace =    C('AUTOLOAD_NAMESPACE');
-              if(isset($namespace[$name])){ // 注册的命名空间
-                  $path   =   dirname($namespace[$name]) . '/';
-              }else{// 模块的命名空间
-                $path   =   APP_PATH;
-              }              
+          $name           =   strstr($class, '\\', true);
+          if(in_array($name,array('Think','Org','Behavior','Com','Vendor')) || is_dir(LIB_PATH.$name)){ 
+              // Library目录下面的命名空间自动定位
+              $path       =   LIB_PATH;
+          }else{
+              // 检测自定义命名空间 否则就以模块为命名空间
+              $namespace  =   C('AUTOLOAD_NAMESPACE');
+              $path       =   isset($namespace[$name])? dirname($namespace[$name]).'/' : APP_PATH;
           }
-          $filename = $path . str_replace('\\', '/', $class) . EXT;
+          $filename       =   $path . str_replace('\\', '/', $class) . EXT;
           if(is_file($filename)) {
               // Win环境下面严格区分大小写
               if (IS_WIN && false === strpos(str_replace('/', '\\', realpath($filename)), $class . EXT)){
@@ -235,7 +237,6 @@ class Think {
     static public function fatalError() {
         Log::save();
         if ($e = error_get_last()) {
-            
             switch($e['type']){
               case E_ERROR:
               case E_PARSE:
@@ -278,7 +279,7 @@ class Think {
             if (!empty($error_page)) {
                 redirect($error_page);
             } else {
-                if (!C('SHOW_ERROR_MSG'))
+                if (C('SHOW_ERROR_MSG'))
                     $e['message'] = is_array($error) ? $error['message'] : $error;
                 else
                     $e['message'] = C('ERROR_MESSAGE');
@@ -298,7 +299,7 @@ class Think {
      * 添加和获取页面Trace记录
      * @param string $value 变量
      * @param string $label 标签
-     * @param string $level 日志级别
+     * @param string $level 日志级别(或者页面Trace的选项卡)
      * @param boolean $record 是否记录日志
      * @return void
      */
@@ -312,10 +313,10 @@ class Think {
                 E($info);
             }
             $level  =   strtoupper($level);
-            if(!isset($_trace[$level])) {
-                    $_trace[$level] =   array();
-                }
-            $_trace[$level][]   = $info;
+            if(!isset($_trace[$level]) || count($_trace[$level])>C('TRACE_MAX_RECORD')) {
+                $_trace[$level] =   array();
+            }
+            $_trace[$level][]   =   $info;
             if((defined('IS_AJAX') && IS_AJAX) || !C('SHOW_PAGE_TRACE')  || $record) {
                 Log::record($info,$level,$record);
             }

@@ -16,8 +16,8 @@ class Route {
     
     // 路由检测
     public static function check(){
-        $regx   =   $_SERVER['PATH_INFO'];
         $depr   =   C('URL_PATHINFO_DEPR');
+        $regx   =   preg_replace('/\.'.__EXT__.'$/i','',trim($_SERVER['PATH_INFO'],$depr));
         // 分隔符替换 确保路由定义使用统一的分隔符
         if('/' != $depr){
             $regx = str_replace($depr,'/',$regx);
@@ -33,6 +33,28 @@ class Route {
         $routes =   C('URL_ROUTE_RULES');
         if(!empty($routes)) {
             foreach ($routes as $rule=>$route){
+                if(is_numeric($rule)){
+                    // 支持 array('rule','adddress',...) 定义路由
+                    $rule   =   array_shift($route);
+                }
+                if(is_array($route) && isset($route[2])){
+                    // 路由参数
+                    $options    =   $route[2];
+                    if(isset($options['ext']) && __EXT__ != $options['ext']){
+                        // URL后缀检测
+                        continue;
+                    }
+                    if(isset($options['method']) && REQUEST_METHOD != $options['method']){
+                        // 请求类型检测
+                        continue;
+                    }
+                    // 自定义检测
+                    if(!empty($options['callback']) && is_callable($options['callback'])) {
+                        if(false === call_user_func($options['callback'])) {
+                            continue;
+                        }
+                    }                    
+                }
                 if(0===strpos($rule,'/') && preg_match($rule,$regx,$matches)) { // 正则路由
                     if($route instanceof \Closure) {
                         // 执行闭包并中止
@@ -43,7 +65,7 @@ class Route {
                 }else{ // 规则路由
                     $len1   =   substr_count($regx,'/');
                     $len2   =   substr_count($rule,'/');
-                    if($len1>=$len2) {
+                    if($len1>=$len2 || strpos($rule,'[')) {
                         if('$' == substr($rule,-1,1)) {// 完整匹配
                             if($len1 != $len2) {
                                 continue;
@@ -73,11 +95,20 @@ class Route {
         $m2 = explode('/',$rule);
         $var = array();         
         foreach ($m2 as $key=>$val){
+            if(0 === strpos($val,'[:')){
+                $val    =   substr($val,1,-1);
+            }
+                
             if(':' == substr($val,0,1)) {// 动态变量
+                if($pos = strpos($val,'|')){
+                    // 使用函数过滤
+                    $val   =   substr($val,1,$pos-1);
+                }
                 if(strpos($val,'\\')) {
                     $type = substr($val,-1);
-                    if('d'==$type && !is_numeric($m1[$key])) {
-                        return false;
+                    if('d'==$type) {
+                        if(isset($m1[$key]) && !is_numeric($m1[$key]))
+                            return false;
                     }
                     $name = substr($val, 1, -2);
                 }elseif($pos = strpos($val,'^')){
@@ -89,7 +120,7 @@ class Route {
                 }else{
                     $name = substr($val, 1);
                 }
-                $var[$name] = $m1[$key];
+                $var[$name] = isset($m1[$key])?$m1[$key]:'';
             }elseif(0 !== strcasecmp($val,$m1[$key])){
                 return false;
             }
@@ -141,7 +172,16 @@ class Route {
         $matches  =  array();
         $rule =  explode('/',$rule);
         foreach ($rule as $item){
+            $fun    =   '';
+            if(0 === strpos($item,'[:')){
+                $item   =   substr($item,1,-1);
+            }
             if(0===strpos($item,':')) { // 动态变量获取
+                if($pos = strpos($item,'|')){ 
+                    // 支持函数过滤
+                    $fun  =  substr($item,$pos+1);
+                    $item =  substr($item,0,$pos);                    
+                }
                 if($pos = strpos($item,'^') ) {
                     $var  =  substr($item,1,$pos-1);
                 }elseif(strpos($item,'\\')){
@@ -149,7 +189,7 @@ class Route {
                 }else{
                     $var  =  substr($item,1);
                 }
-                $matches[$var] = array_shift($paths);
+                $matches[$var] = !empty($fun)? $fun(array_shift($paths)) : array_shift($paths);
             }else{ // 过滤URL中的静态变量
                 array_shift($paths);
             }
@@ -208,7 +248,15 @@ class Route {
             // 解析剩余的URL参数
             $regx =  substr_replace($regx,'',0,strlen($matches[0]));
             if($regx) {
-                preg_replace_callback('/(\w+)\/([^\/]+)/', function($matach) use(&$var){$var[strtolower($match[1])]=strip_tags($match[2]);}, $regx);
+                preg_replace_callback('/(\w+)\/([^\/]+)/', function($match) use(&$var){
+                    if(strpos($match[2],'|')){
+                        list($val,$fun) = explode('|',$match[2]);
+                        $val    =   $fun($val);
+                    }else{
+                        $val    =   $match[2];
+                    }
+                    $var[strtolower($match[1])] = strip_tags($val);
+                }, $regx);
             }
             // 解析路由自动传入参数
             if(is_array($route) && isset($route[1])) {

@@ -34,7 +34,7 @@ class Log {
     // 日志初始化
     static public function init($config=array()){
         $type   =   isset($config['type'])?$config['type']:'File';
-        $class  =   'Think\\Log\\Driver\\'. ucwords($type);
+        $class  =   strpos($type,'\\')? $type: 'Think\\Log\\Driver\\'. ucwords(strtolower($type));           
         unset($config['type']);
         self::$storage = new $class($config);
     }
@@ -60,10 +60,9 @@ class Log {
      * @access public
      * @param integer $type 日志记录方式
      * @param string $destination  写入目标
-     * @param string $extra 额外参数
      * @return void
      */
-    static function save($type='',$destination='',$extra='') {
+    static function save($type='',$destination='') {
         if(empty(self::$log)) return ;
 
         if(empty($destination))

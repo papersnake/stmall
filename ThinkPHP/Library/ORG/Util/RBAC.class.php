@@ -8,17 +8,11 @@
 // +----------------------------------------------------------------------
 // | Author: liu21st <liu21st@gmail.com>
 // +----------------------------------------------------------------------
-// $Id: RBAC.class.php 2947 2012-05-13 15:57:48Z liu21st@gmail.com $
-
+namespace Org\Util;
+use Think\Db;
 /**
  +------------------------------------------------------------------------------
  * 基于角色的数据库方式验证类
- +------------------------------------------------------------------------------
- * @category   ORG
- * @package  ORG
- * @subpackage  Util
- * @author    liu21st <liu21st@gmail.com>
- * @version   $Id: RBAC.class.php 2947 2012-05-13 15:57:48Z liu21st@gmail.com $
  +------------------------------------------------------------------------------
  */
 // 配置文件增加设置
@@ -78,7 +72,7 @@ CREATE TABLE IF NOT EXISTS `think_role_user` (
   KEY `user_id` (`user_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 */
-class RBAC {
+class Rbac {
     // 认证方法
     static public function authenticate($map,$model='') {
         if(empty($model)) $model =  C('USER_AUTH_MODEL');
@@ -92,16 +86,16 @@ class RBAC {
         // 如果使用普通权限模式，保存当前用户的访问权限列表
         // 对管理员开发所有权限
         if(C('USER_AUTH_TYPE') !=2 && !$_SESSION[C('ADMIN_AUTH_KEY')] )
-            $_SESSION['_ACCESS_LIST']	=	RBAC::getAccessList($authId);
+            $_SESSION['_ACCESS_LIST']	=	self::getAccessList($authId);
         return ;
     }
 
 	// 取得模块的所属记录访问权限列表 返回有权限的记录ID数组
 	static function getRecordAccessList($authId=null,$module='') {
         if(null===$authId)   $authId = $_SESSION[C('USER_AUTH_KEY')];
-        if(empty($module))  $module	=	MODULE_NAME;
+        if(empty($module))  $module	=	CONTROLLER_NAME;
         //获取权限访问列表
-        $accessList = RBAC::getModuleAccessList($authId,$module);
+        $accessList = self::getModuleAccessList($authId,$module);
         return $accessList;
 	}
 
@@ -119,7 +113,7 @@ class RBAC {
                 $_module['no'] = explode(',',strtoupper(C('NOT_AUTH_MODULE')));
             }
             //检查当前模块是否需要认证
-            if((!empty($_module['no']) && !in_array(strtoupper(MODULE_NAME),$_module['no'])) || (!empty($_module['yes']) && in_array(strtoupper(MODULE_NAME),$_module['yes']))) {
+            if((!empty($_module['no']) && !in_array(strtoupper(CONTROLLER_NAME),$_module['no'])) || (!empty($_module['yes']) && in_array(strtoupper(CONTROLLER_NAME),$_module['yes']))) {
 				if("" != C('REQUIRE_AUTH_ACTION')) {
 					//需要认证的操作
 					$_action['yes'] = explode(',',strtoupper(C('REQUIRE_AUTH_ACTION')));
@@ -143,14 +137,14 @@ class RBAC {
 	// 登录检查
 	static public function checkLogin() {
         //检查当前操作是否需要认证
-        if(RBAC::checkAccess()) {
+        if(self::checkAccess()) {
             //检查认证识别号
             if(!$_SESSION[C('USER_AUTH_KEY')]) {
                 if(C('GUEST_AUTH_ON')) {
                     // 开启游客授权访问
                     if(!isset($_SESSION['_ACCESS_LIST']))
                         // 保存游客权限
-                        RBAC::saveAccessList(C('GUEST_AUTH_ID'));
+                        self::saveAccessList(C('GUEST_AUTH_ID'));
                 }else{
                     // 禁止游客访问跳转到认证网关
                     redirect(PHP_FILE.C('USER_AUTH_GATEWAY'));
@@ -161,16 +155,16 @@ class RBAC {
 	}
 
     //权限认证的过滤器方法
-    static public function AccessDecision($appName=APP_NAME) {
+    static public function AccessDecision($appName=MODULE_NAME) {
         //检查是否需要认证
-        if(RBAC::checkAccess()) {
+        if(self::checkAccess()) {
             //存在认证识别号，则进行进一步的访问决策
-            $accessGuid   =   md5($appName.MODULE_NAME.ACTION_NAME);
+            $accessGuid   =   md5($appName.CONTROLLER_NAME.ACTION_NAME);
             if(empty($_SESSION[C('ADMIN_AUTH_KEY')])) {
                 if(C('USER_AUTH_TYPE')==2) {
                     //加强验证和即时验证模式 更加安全 后台权限修改可以即时生效
                     //通过数据库进行访问检查
-                    $accessList = RBAC::getAccessList($_SESSION[C('USER_AUTH_KEY')]);
+                    $accessList = self::getAccessList($_SESSION[C('USER_AUTH_KEY')]);
                 }else {
                     // 如果是管理员或者当前操作已经认证过，无需再次认证
                     if( $_SESSION[$accessGuid]) {
@@ -180,8 +174,7 @@ class RBAC {
                     $accessList = $_SESSION['_ACCESS_LIST'];
                 }
                 //判断是否为组件化模式，如果是，验证其全模块名
-                $module = defined('P_MODULE_NAME')?  P_MODULE_NAME   :   MODULE_NAME;
-                if(!isset($accessList[strtoupper($appName)][strtoupper($module)][strtoupper(ACTION_NAME)])) {
+                if(!isset($accessList[strtoupper($appName)][strtoupper(CONTROLLER_NAME)][strtoupper(ACTION_NAME)])) {
                     $_SESSION[$accessGuid]  =   false;
                     return false;
                 }
