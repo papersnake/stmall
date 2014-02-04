@@ -40,9 +40,10 @@ class PictureModel extends Model{
 
 				$value['good_id'] = $goodid;
 				$value['path']    = substr($setting['rootPath'],1).$value['savepath'].$value['savename'];
-				$thumbname = substr($setting['rootPath'],1).$value['savepath'].'thumb_'.$value['savename'];
+				$value['thumb']   = substr($setting['rootPath'],1).'/thumb/'.'thumb_'.$value['savename'];
 				$Image = new Image();
-
+				$Image->open('.'.$value['path']);
+				$Image->thumb(150,150)->save('.'.$value['thumb']);
 				//$Image.thumb($value['path'],$thumbname);
 				//\ORG\Util\Image::thumb($value['path'],$thumbname);
 				if($this->create($value) && ($id = $this->add()))
