@@ -30,6 +30,7 @@ return array(
 		'saveExt'  => '', //文件保存后缀，空则使用原后缀
 		'replace'  => false, //存在同名是否覆盖
 		'hash'     => true, //是否生成hash编码
+		'driver'=>'Local',
 		'callback' => false, //检测文件是否存在回调函数，如果存在返回文件信息数组
     ), //下载模型上传配置（文件上传类配置）
 );

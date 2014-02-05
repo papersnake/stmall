@@ -29,7 +29,7 @@ class PictureModel extends Model{
 		}
 
 		$setting['callback'] = array($this,'isFile');
-		$Upload              = new Upload($setting,$driver,$config);
+		$Upload              = new Upload($setting);
 		$Upload->savePath    = '/'.$goodid.'/';
 		$info                = $Upload->upload($files);
 		if($info){
