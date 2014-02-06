@@ -3,7 +3,7 @@
 # Brief       Sync your git commitment to SAE.
 # Author      LiJunjie, holysoros@gmail.com
 # Usage       sync-git-to-sae.sh <username> [src dir]
-# Version     0.00
+# Version     0.01
 # Date        11-06-16 16:09:25
 # modiy       papersnake,cctv5cn@gmail.com
 ##################################################
