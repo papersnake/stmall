@@ -2,7 +2,7 @@
 
 namespace Admin\Model;
 use Think\Model;
-use COM\Upload;
+use Think\Upload;
 use ORG\Util;
 use Think\Image;
 use Think\Image\Driver\ImageGd;

@@ -49,7 +49,7 @@ class PublicController extends \Think\Controller {
 	}
 
 	public function verify() {
-		$verify = new \COM\Verify();
+		$verify = new \Think\Verify();
 		$verify->entry(1);
 	}
 }
