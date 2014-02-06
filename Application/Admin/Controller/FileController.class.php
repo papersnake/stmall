@@ -16,9 +16,7 @@ class FileController extends AdminController {
 				$return['error'] = $Picture->getError();
 			}else{
 				$return = $info['files'];
-				//$return['url'] = 'http://www.test.com'.$return['path'];
 				$return['url'] = U($return['path'],'',false,true);
-				//$return['thumbnailUrl'] = 'http://www.test.com'.$return['thumb'];
 				$return['thumbnailUrl']=U($return['thumb'],'',false,true);
 			}
 			$files[]= $return;
