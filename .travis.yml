@@ -1,20 +1,10 @@
 language: php
-
 php:
- - 5.3
- - 5.4
-
+- 5.3
 env:
-global:
-    - secure: "qZnT0uzdic93EfuRDjNRt2QaeyCEhI/y6utOpvm7AGwmlT3WDkG1F1mgVY45AV6k5HrAcS2rATNcBgt1oIjNhg0+q0UDnIYjoB4IuUl0i1mbEJWcO6VUK7tWPFeuKgf1W0/aT+Qt8WPmeNGswaqHy79jkjXEMX2uZ9+SEduQBJE="
-
-# command to install dependencies
-#install:
-#- pip install -r requirements.txt --use-mirrors
-
-# command to run tests
-script: nosetests 
-
+  global:
+    secure: jZlNVw9b5HxCpsIMLUCheqYCu6ozik/aSHIstCrCdbX6sO9llxSP2/L5dTpdN0VpQ4kdSXZQmxqlJqbrc0IgwATqiDMzCr8nveLT1rWt/t8I8Y9f7dzHI0sUtiyL2GdqmCqopDoi1M2BXxpAa47Q6xnr7IXLI83z/Q/hoiMMWMw=
+script: nosetests
 after_script:
 - env
 - ./sync-git-to-sae.sh cctv5cn@gmail.com
