@@ -57,7 +57,7 @@ class Model {
     // 是否批处理验证
     protected $patchValidate    =   false;
     // 链操作方法列表
-    protected $methods          =   array('table','order','alias','having','group','lock','distinct','auto','filter','validate','result','token');
+    protected $methods          =   array('order','alias','having','group','lock','distinct','auto','filter','validate','result','token');
 
     /**
      * 架构函数
@@ -534,8 +534,7 @@ class Model {
     protected function _parseOptions($options=array()) {
         if(is_array($options))
             $options =  array_merge($this->options,$options);
-        // 查询过后清空sql表达式组装 避免影响下次查询
-        $this->options  =   array();
+
         if(!isset($options['table'])){
             // 自动获取表名
             $options['table']   =   $this->getTableName();
@@ -544,7 +543,9 @@ class Model {
             // 指定数据表 则重新获取字段列表 但不支持类型检测
             $fields             =   $this->getDbFields();
         }
-
+        // 查询过后清空sql表达式组装 避免影响下次查询
+        $this->options  =   array();
+        // 数据表别名
         if(!empty($options['alias'])) {
             $options['table']  .=   ' '.$options['alias'];
         }
@@ -1273,13 +1274,13 @@ class Model {
      */
     public function getModelName() {
         if(empty($this->name)){
-			$name = substr(get_class($this),0,-5);
-			if ( $pos = strrpos($name,'\\') ) {//有命名空间
-				$this->name = substr($name,$pos+1);
-			}else{
-				$this->name = $name;
-			}
-		}
+            $name = substr(get_class($this),0,-5);
+            if ( $pos = strrpos($name,'\\') ) {//有命名空间
+                $this->name = substr($name,$pos+1);
+            }else{
+                $this->name = $name;
+            }
+        }
         return $this->name;
     }
 
@@ -1420,6 +1421,24 @@ class Model {
     }
 
     /**
+     * 指定当前的数据表
+     * @access public
+     * @param mixed $table
+     * @return Model
+     */
+    public function table($table) {
+        $prefix =   $this->tablePrefix;
+        if(is_array($table)) {
+            $this->options['table'] =   $table;
+        }elseif(!empty($table)) {
+            //将__TABLE_NAME__替换成带前缀的表名
+            $table  = preg_replace_callback("/__([A-Z_-]+)__/sU", function($match) use($prefix){ return $prefix.strtolower($match[1]);}, $table);
+            $this->options['table'] =   $table;
+        }
+        return $this;
+    }
+
+    /**
      * 查询SQL组装 join
      * @access public
      * @param mixed $join
@@ -1427,9 +1446,16 @@ class Model {
      * @return Model
      */
     public function join($join,$type='INNER') {
+        $prefix =   $this->tablePrefix;
         if(is_array($join)) {
+            foreach ($join as $key=>&$_join){
+                $_join  =   preg_replace_callback("/__([A-Z_-]+)__/sU", function($match) use($prefix){ return $prefix.strtolower($match[1]);}, $_join);
+                $_join  =   false !== stripos($_join,'JOIN')? $_join : $type.' JOIN ' .$_join;
+            }
             $this->options['join']      =   $join;
         }elseif(!empty($join)) {
+            //将__TABLE_NAME__字符串替换成带前缀的表名
+            $join  = preg_replace_callback("/__([A-Z_-]+)__/sU", function($match) use($prefix){ return $prefix.strtolower($match[1]);}, $join);
             $this->options['join'][]    =   false !== stripos($join,'JOIN')? $join : $type.' JOIN '.$join;
         }
         return $this;
@@ -1452,7 +1478,9 @@ class Model {
         }
         // 转换union表达式
         if(is_string($union) ) {
-            $options =  $union;
+            $prefix =   $this->tablePrefix;
+            //将__TABLE_NAME__字符串替换成带前缀的表名
+            $options  = preg_replace_callback("/__([A-Z_-]+)__/sU", function($match) use($prefix){ return $prefix.strtolower($match[1]);}, $union);
         }elseif(is_array($union)){
             if(isset($union[0])) {
                 $this->options['union']  =  array_merge($this->options['union'],$union);
