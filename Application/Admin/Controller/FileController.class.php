@@ -10,14 +10,12 @@ class FileController extends AdminController {
 			$goodid  = I('post.good_id');
 			$info    = $Picture->upload($goodid,$_FILES,C('PICTURE_UPLOAD'));
 
-			//dump($info);
 			if(!$info){
-				//$this->error($Picture->getError());
 				$return['error'] = $Picture->getError();
 			}else{
 				$return = $info['files'];
-				$return['url'] = U($return['path'],'',false,true);
-				$return['thumbnailUrl']=U($return['thumb'],'',false,true);
+				$return['url'] = U($return['path'], '', false, true);
+				$return['thumbnailUrl']=U($return['thumb'], '', false, true);
 			}
 			$files[]= $return;
 
