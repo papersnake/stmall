@@ -31,10 +31,11 @@ svn_rm_deleted() {
 
 # add new items from svn repository
 svn_add_new() {
-    new_items=`svn status | grep ^? | awk '{ print $2}'`
-    if ! [ -z "$new_items" ]; then
-        svn add "$new_items"
-    fi
+    #new_items=`svn status | grep ^? | awk '{ print $2}'`
+    #if ! [ -z "$new_items" ]; then
+    #    svn add "$new_items"
+    #fi
+    svn st | awk 'if{$1 == "?" { print $2}' | xargs svn add
 }
 
 
