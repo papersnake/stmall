@@ -1,10 +1,11 @@
 language: php
 php:
-- 5.3
+  - 5.3.3
+  - 5.3
+  - 5.4
 env:
   global:
     secure: jZlNVw9b5HxCpsIMLUCheqYCu6ozik/aSHIstCrCdbX6sO9llxSP2/L5dTpdN0VpQ4kdSXZQmxqlJqbrc0IgwATqiDMzCr8nveLT1rWt/t8I8Y9f7dzHI0sUtiyL2GdqmCqopDoi1M2BXxpAa47Q6xnr7IXLI83z/Q/hoiMMWMw=
-script: nosetests
 before_script:
   - composer selfupdate
   - composer install
