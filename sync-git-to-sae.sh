@@ -35,7 +35,7 @@ svn_add_new() {
     #if ! [ -z "$new_items" ]; then
     #    svn add "$new_items"
     #fi
-    svn st | awk 'if{$1 == "?" { print $2}' | xargs svn add
+    svn st | awk '{if ($1 == "?") { print $2}}' | xargs svn add
 }
 
 
