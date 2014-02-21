@@ -2,7 +2,7 @@
 // +----------------------------------------------------------------------
 // | ThinkPHP [ WE CAN DO IT JUST THINK IT ]
 // +----------------------------------------------------------------------
-// | Copyright (c) 2006-2013 http://thinkphp.cn All rights reserved.
+// | Copyright (c) 2006-2014 http://thinkphp.cn All rights reserved.
 // +----------------------------------------------------------------------
 // | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
 // +----------------------------------------------------------------------
@@ -106,9 +106,12 @@ class Think {
       date_default_timezone_set(C('DEFAULT_TIMEZONE'));
 
       // 检查应用目录结构 如果不存在则自动创建
-      if(C('CHECK_APP_DIR') && !is_dir(LOG_PATH)) {
-          // 创建应用目录结构
-          require THINK_PATH.'Common/build.php';
+      if(C('CHECK_APP_DIR')) {
+          $module     =   defined('BIND_MODULE') ? BIND_MODULE : C('DEFAULT_MODULE');
+          if(!is_dir(APP_PATH.$module) || !is_dir(LOG_PATH)){
+              // 检测应用目录结构
+              Build::checkDir($module);
+          }
       }
 
       // 记录加载文件时间
@@ -146,7 +149,7 @@ class Think {
         // 检查是否存在映射
         if(isset(self::$_map[$class])) {
             include self::$_map[$class];
-        }else{
+        }elseif(false !== strpos($class,'\\')){
           $name           =   strstr($class, '\\', true);
           if(in_array($name,array('Think','Org','Behavior','Com','Vendor')) || is_dir(LIB_PATH.$name)){ 
               // Library目录下面的命名空间自动定位
@@ -164,6 +167,21 @@ class Think {
               }
               include $filename;
           }
+        }elseif (!C('APP_USE_NAMESPACE')) {
+            // 自动加载的类库层
+            foreach(explode(',',C('APP_AUTOLOAD_LAYER')) as $layer){
+                if(substr($class,-strlen($layer))==$layer){
+                    if(require_cache(MODULE_PATH.$layer.'/'.$class.EXT)) {
+                        return ;
+                    }
+                }            
+            }
+            // 根据自动加载路径设置进行尝试搜索
+            foreach (explode(',',C('APP_AUTOLOAD_PATH')) as $path){
+                if(import($path.'.'.$class))
+                    // 如果加载类成功则返回
+                    return ;
+            }
         }
     }
 
@@ -279,7 +297,7 @@ class Think {
                 $e              = $error;
             }
             if(IS_CLI){
-                exit($e['message'].PHP_EOL.'FILE: '.$e['file'].'('.$e['line'].')'.PHP_EOL.$e['trace']);
+                exit(iconv('UTF-8','gbk',$e['message']).PHP_EOL.'FILE: '.$e['file'].'('.$e['line'].')'.PHP_EOL.$e['trace']);
             }
         } else {
             //否则定向到错误页面

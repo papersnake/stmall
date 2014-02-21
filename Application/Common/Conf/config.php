@@ -4,7 +4,7 @@ return array(
 	'SHOW_PAGE_TRACE' => true,
 	'DATA_AUTH_KEY'   => 'Y,y8Je9Exs/Wb_~RtmaA=dMV%|IOQD!g:;q?(20u',
 	'LOG_RECORD'      => true,
-	'URL_MODEL'       => '2',
+	'URL_MODEL'       => '1',
 	'DEFAULT_FILTER'  => 'htmlspecialchars',
 	/* 数据库配置 */
 	'DB_TYPE'         => 'mysql', // 数据库类型

@@ -1,6 +1,5 @@
-<?php
-return array(
-	'app_end'=>array(
-			'Behavior\ChromeShowPageTrace'
-		)
-	);
+ <?php return array(
+    'app_end'=>array(
+        'Behavior\ChromeShowPageTraceBehavior'
+    )
+ );
