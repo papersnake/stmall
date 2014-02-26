@@ -6,4 +6,3 @@ return array(
 		'Good/:show' => array('Good/barcode','',array()),
 		),
 );
-?>

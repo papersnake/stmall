@@ -50,6 +50,7 @@ class PublicController extends \Think\Controller {
 
 	public function verify() {
 		$verify = new \Think\Verify();
+		ob_clean();
 		$verify->entry(1);
 	}
 }

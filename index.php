@@ -1,5 +1,5 @@
 <?php
-	ob_start();
+	//ob_start();
 	define('APP_DEBUG', true);
 	//define('APP_MODE', 'sae');
 	define('APP_PATH', './Application/');
