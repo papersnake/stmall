@@ -1,6 +1,6 @@
 <?php
 namespace Org\Util;
-use Think\Log;
+//use Think\Log;
 
 class ThinkOAuth2 extends OAuth2 {
 
@@ -59,8 +59,8 @@ class ThinkOAuth2 extends OAuth2 {
 				->table($this->_config['OAUTH2_CLIENTS'])
 				->where(array('client_id'=>$client_id))
 				->field('client_secret')->select();
-		Log::record(M()->_sql(),'SQL');
-		Log::record($result,'INFO');
+		//Log::record(M()->_sql(),'SQL');
+		//Log::record($result,'INFO');
 		return $result[0]["client_secret"] == $client_secret;
 	}
 
@@ -76,7 +76,7 @@ class ThinkOAuth2 extends OAuth2 {
 		{
 			return FALSE;
 		}
-		Log::record(M()->_sql(),'SQL');
+		//Log::record(M()->_sql(),'SQL');
 		return isset($result[$client_id]["redirect_uri"]) && $result[$client_id]["redirect_uri"] ? $result[$client_id]["redirect_uri"] : NULL;
 
 	}
@@ -88,7 +88,7 @@ class ThinkOAuth2 extends OAuth2 {
 				->table($this->_config['OAUTH2_TOKEN'])
 				->where(array('access_token'=>$access_token))
 				->field('client_id,expires,scope')->select();
-		Log::record(M()->_sql(),'SQL');
+		//Log::record(M()->_sql(),'SQL');
 		return $result !== FALSE ? $result : NULL;
 	}
 
@@ -103,7 +103,7 @@ class ThinkOAuth2 extends OAuth2 {
 		$data['scope']        = $scope;
 
         M()->table($this->_config['OAUTH2_TOKEN'])->add($data);
-        Log::record(M()->_sql(),'SQL');
+        //Log::record(M()->_sql(),'SQL');
 
 	}
 
@@ -120,7 +120,7 @@ class ThinkOAuth2 extends OAuth2 {
 				->table($this->_config['OAUTH2_CODES'])
 				->where(array('code'=>$code))
 				->field('code, client_id,redirect_uri, expires, scope')->select();
-		Log::record(M()->_sql(),'SQL');
+		//Log::record(M()->_sql(),'SQL');
 		return $result !== FALSE ? $result[0] : NULL;
 	}
 
@@ -139,7 +139,7 @@ class ThinkOAuth2 extends OAuth2 {
 		$data['scope'] = $scope;
 		$result=M()->table($this->_config['OAUTH2_CODES'])->add($data);
 
-		Log::record(M()->_sql(),'SQL');
+		//Log::record(M()->_sql(),'SQL');
 	}
 
 	protected function checkUserCredentials($client_id, $username,$password){
