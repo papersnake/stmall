@@ -1,10 +1,17 @@
 <?php
 namespace Api\Controller;
 use Think\Controller\RestController;
+use Org\Util\ThinkOAuth2;
 
 Class GoodController extends RestController {
 	protected $allowMethod = array('get');
 	protected $allowType   = array('json','html');
+
+	protected $oauth = NULL;
+
+	function _initialize() {
+		$this->oauth=new ThinkOAuth2();
+	}
 
 	public function read_json() {
 		$id          = I('get.id','');
@@ -26,10 +33,15 @@ Class GoodController extends RestController {
 	}
 
 	public function search_get_html() {
-		$key             = I('get.key','');
-		$map['_string']  = "CONCAT(good_name,good_id,barcode,good_spec) like '%".$key."%'";
-		$this->goodsinfo = M('Good')->where($map)->select();
-		$this->response($this->goodsinfo,'JSON');
+		if($this->oauth->verifyAccessToken()){
+			$key             = I('get.key','');
+			$map['_string']  = "CONCAT(good_name,good_id,barcode,good_spec) like '%".$key."%'";
+			$this->goodsinfo = M('Good')->where($map)->select();
+			$this->response($this->goodsinfo,'JSON');
+		} else {
+			$this->response('{error:110}');
+
+		}
 		//header('application/json; charset=utf-8');
 		//echo json_encode($this->goodsinfo);
 		//$barcode              = I('get.keys','');
