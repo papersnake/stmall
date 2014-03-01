@@ -1,7 +1,7 @@
 <?php
 namespace Api\Controller;
 use Think\Controller;
-//use Org\Util\ThinkOAuth2;
+use Org\Util\ThinkOAuth2;
 
 class OauthController extends Controller {
 
@@ -11,7 +11,7 @@ class OauthController extends Controller {
 		header("Content-type:application/json");
 		header('Cache-Contorl: no-store');
 
-		$this->oauth = new \Org\Util\ThinkOAuth2();
+		$this->oauth = new ThinkOAuth2();
 	}
 
 	public function index() {
