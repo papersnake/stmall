@@ -8,8 +8,8 @@ class OauthController extends Controller {
 	private $oauth = NULL;
 
 	function _initialize() {
-		header("Content-type:application/json");
-		header('Cache-Contorl: no-store');
+		//header("Content-type:application/json");
+		//header('Cache-Contorl: no-store');
 
 		$this->oauth = new ThinkOAuth2();
 	}
@@ -34,13 +34,15 @@ class OauthController extends Controller {
 
 	public function authorize() {
 		if(IS_POST){
+			header("Content-type:application/json");
+			header('Cache-Contorl: no-store');
 			$authsession=session('auth_params');
 			if(!isset($authsession)){
 				$this->error('Missing auth parameters');
 			}
 			//dump($authsession);
 			$params=unserialize($authsession);
-			dump($params);
+			//dump($params);
 			$post=I('post.approve');
 			if(isset($post)) {
 				$this->oauth->finishClientAuthorization(TRUE,$params);
