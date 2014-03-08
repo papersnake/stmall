@@ -23,13 +23,19 @@
 		<link rel="stylesheet" href="__CSS__/theme_light.css" id="skin_color">
 	</head>
 	<body>
-		Hello,OAUTH2!
+	<div class="col-md-3 col-md-offset-4 col-sm-6 col-sm-offset-3">
+		<div class="logo">在线超市<i class="clip-clip"></i>管理系统
+			</div>
+		<div class="alert">你的应用需要访问STMALL授权！</div>
+		<div class="form-actions">
 		<form method="post" style="display:inline">
-			<input type="submit" name="approve" id="approve" class="btn btn-bricky" value="Approve">
+			<input type="submit" name="approve" id="approve" class="btn btn-bricky pull-right" value="授权">
 		</form>
 
 		<form method="post" style="display:inline">
-			<input type="submit" name="deny" id="deny" class="btn btn-bricky"  value="Deny">
+			<input type="submit" name="deny" id="deny" class="btn btn-bricky pull-right"  value="取消">
 		</form>
+		</div>
+	</div>
 	</body>
 </html>

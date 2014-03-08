@@ -32,6 +32,47 @@ class OauthController extends Controller {
 		exit;
 	}
 
+	public function login($username = null, $password = null) {
+		if(IS_POST){
+			//if(!check_verify($verify)) {
+			//	$this->error('验证码错误!');
+			//}
+
+			$User = D('User');
+			$uid  = $User->login($username, $password);
+			if( 0<$uid ){
+				$this->success('登录成功!', U('authorize'));
+			} else {
+				//$this->error($user->getError());
+				switch($uid) {
+					case -1:$error = '密码错误！';break;
+					case -2:$error = '用户不存在或被禁用!';break;
+					default:$error = '未知错误！';break;
+				}
+				$this->error($error);
+				//$this->display();
+			}
+		}
+		else
+		{
+			if(is_login()) {
+				$this->redirect('authorize');
+			} else {
+				$this->display();
+			}
+		}
+	}
+
+	public function logout() {
+		if(is_login()){
+			D('User')->logout();
+			session('[Destroy]');
+			$this->success('退出成功!',U('login'));
+		} else {
+			$this->redirect('login');
+		}
+	}
+
 	public function authorize() {
 		if(IS_POST){
 			header("Content-type:application/json");
@@ -51,13 +92,19 @@ class OauthController extends Controller {
 			//$this->display();
 
 		}else{
-			$auth_params = $this->oauth->getAuthorizeParams();
-			//echo $auth_params;
-			//dump($auth_params);
-			//$this->assign('params',$auth_params);
-			$obj=serialize($auth_params);
-			dump($obj);
-			session('auth_params',$obj);
+			if(session('auth_params') === NULL){
+				$auth_params = $this->oauth->getAuthorizeParams();
+				//echo $auth_params;
+				//dump($auth_params);
+				//$this->assign('params',$auth_params);
+				$obj=serialize($auth_params);
+				//dump($obj);
+				session('auth_params',$obj);
+			}
+			if(!is_login())
+			{
+				$this->redirect('login');
+			}
 			$this->display();
 		}
 	}
