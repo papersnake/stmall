@@ -1,5 +1,6 @@
 <?php
 return array(
+	'SHOW_PAGE_TRACE' => false,
 	'TMPL_PARSE_STRING'	=> array(
 			'__STATIC__'  => __ROOT__ . '/Public/static',
 			'__ADDONS__'  => __ROOT__ . '/Public/Admin/Addons',
