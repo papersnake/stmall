@@ -66,7 +66,8 @@ class ThinkOAuth2 extends OAuth2 {
 				->where(array('access_token'=>$access_token))
 				->field('client_id,expires,scope')->select();
 		//Log::record(M()->_sql(),'SQL');
-		return $result !== FALSE ? $result : NULL;
+		//dump($result);
+		return $result !== FALSE ? $result[0] : NULL;
 	}
 
 	protected function setAccessToken($access_token,$client_id,$expires,$scope=NULL) {
