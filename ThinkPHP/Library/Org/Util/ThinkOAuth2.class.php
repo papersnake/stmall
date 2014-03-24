@@ -9,7 +9,8 @@ class ThinkOAuth2 extends OAuth2 {
 		'OAUTH2_CODES'   => 'oauth_code',
 		'OAUTH2_CLIENTS' => 'oauth_client',
 		'OAUTH2_TOKEN'   => 'oauth_token',
-		'display_error'  => TRUE
+		'display_error'  => TRUE,
+		'access_token_lifetime' => 86400
 	);
 
 	public function __construct() {

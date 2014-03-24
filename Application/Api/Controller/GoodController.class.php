@@ -39,7 +39,7 @@ Class GoodController extends RestController {
 			$this->goodsinfo = M('Good')->where($map)->select();
 			$this->response($this->goodsinfo,'JSON');
 		} else {
-			$this->response('{error:110}');
+			$this->response('{error:110}','JSON');
 
 		}
 		//header('application/json; charset=utf-8');
