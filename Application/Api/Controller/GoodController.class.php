@@ -26,10 +26,12 @@ Class GoodController extends RestController {
 	}
 
 	public function barcode_get_html() {
-		$barcode              = I('get.show','');
-		$condition['barcode'] = $barcode; 
-		$this->goodsinfo      = M('Good')->where($condition)->select();
-		$this->response($this->goodsinfo[0],'JSON');
+		if($this->oauth->verifyAccessToken()){
+			$barcode              = I('get.show','');
+			$condition['barcode'] = $barcode; 
+			$this->goodsinfo      = M('Good')->where($condition)->select();
+			$this->response($this->goodsinfo[0],'JSON');
+		}
 	}
 
 	public function search_get_html() {
