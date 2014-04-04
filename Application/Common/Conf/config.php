@@ -13,4 +13,11 @@ return array(
 	'DB_PWD'          => '',  // 密码
 	'DB_PORT'         => '3306', // 端口
 	'DB_PREFIX'       => 'stmall_', // 数据库表前缀
+	
+	'SESSION_OPTIONS' =>array(
+						'name'   =>'session_id',
+						'expire' =>'3600',
+						'type' =>'Db'), 
 );
+
+
