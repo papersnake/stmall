@@ -1,5 +1,5 @@
 <?php 
-/*清除rom*/
+/*清除romss*/
 if(isset($_GET['dir'])){ 
 $basedir=$_GET['dir']; 
 }else{ 
