@@ -10,3 +10,4 @@
 	//use Lib\php_error as phperror;
 	//\php_error\reportErrors();
 	require './ThinkPHP/ThinkPHP.php';
+?>
