@@ -16,4 +16,29 @@ select @i=max(convert(bigint,timestamp)) from m001 --然后将最大值记录到
 
 declare @Date datetime
 select @Date = getdate()
-select * from m001 LEFT OUTER JOIN dbo.F_GetSalesPrice(2,@Date) b  on M001.M00101 = b.M00101 left outer join dbo.F_GetC002s(2) c on M001.M00101=c.M00101 
+select * from m001 
+from m001(nolock) INNER JOIN M004(nolock) ON M001.M00101 = M004.M00101 
+LEFT OUTER JOIN dbo.F_GetSalesPrice(2,@Date) b  on M001.M00101 = b.M00101 
+left outer join dbo.F_GetC002s(2) c on M001.M00101=c.M00101 
+inner JOIN M006 ON M001.M00601 = M006.M00601
+LEFT OUTER JOIN M008 ON M001.M00801 = M008.M00801
+
+declare @Date datetime
+select @Date = getdate()
+select 
+M00102 as '货号' ,
+M00103 as '商品条码',
+M00602 as '分类ID',
+M00105 as '商品名称',
+M00107 as '规格',
+M00407 as '零售价格',
+price as '特价',
+M00404 as '最新进价',
+M00112 as '最小单位',
+M00803 as '供应商',
+QTY as '数量'
+from m001(nolock) INNER JOIN M004(nolock) ON M001.M00101 = M004.M00101 
+LEFT OUTER JOIN dbo.F_GetSalesPrice(2,@Date) b  on M001.M00101 = b.M00101 
+left outer join dbo.F_GetC002s(2) c on M001.M00101=c.M00101 
+inner JOIN M006 ON M001.M00601 = M006.M00601
+LEFT OUTER JOIN M008 ON M001.M00801 = M008.M00801
