@@ -42,3 +42,24 @@ LEFT OUTER JOIN dbo.F_GetSalesPrice(2,@Date) b  on M001.M00101 = b.M00101
 left outer join dbo.F_GetC002s(2) c on M001.M00101=c.M00101 
 inner JOIN M006 ON M001.M00601 = M006.M00601
 LEFT OUTER JOIN M008 ON M001.M00801 = M008.M00801
+
+//查询两个表之间不同
+SELECT * FROM test.stmall_good as t1 where md5(CONCAT(t1.good_id,t1.barcode,t1.good_name,t1.good_spec,t1.good_price,ifnull(t1.good_tj_price,0),t1.good_pur_price,t1.units,t1.good_belong,ifnull(t1.good_num,0))) NOT IN (select md5(CONCAT(t2.good_id,t2.barcode,t2.good_name,t2.good_spec,t2.good_price,ifnull(t2.good_tj_price,0),t2.good_pur_price,t2.units,t2.good_belong,ifnull(t2.good_num,0))) from stmall.stmall_good as t2)
+
+//更新修改部分
+UPDATE stmall_good AS desc1 JOIN ( SELECT * FROM stmall.stmall_good AS t1 WHERE md5( CONCAT( t1.good_id, t1.barcode, t1.good_name, t1.good_spec, t1.good_price, ifnull(t1.good_tj_price, 0), t1.good_pur_price, t1.units, t1.good_belong, ifnull(t1.good_num, 0))) NOT IN ( SELECT md5( CONCAT( t2.good_id, t2.barcode, t2.good_name, t2.good_spec, t2.good_price, ifnull(t2.good_tj_price, 0), t2.good_pur_price, t2.units, t2.good_belong, ifnull(t2.good_num, 0))) FROM test.stmall_good AS t2 )) source1 ON desc1.good_id = source1.good_id SET desc1.barcode = source1.barcode, desc1.category_id = source1.category_id, desc1.good_name = source1.good_name, desc1.good_spec = source1.good_spec, desc1.good_price = source1.good_price, desc1.good_tj_price = source1.good_tj_price, desc1.good_pur_price = source1.good_pur_price, desc1.units = source1.units, desc1.good_belong = source1.good_belong, desc1.good_num = source1.good_num
+
+
+SELECT
+	* INTO outfile 'd:\\dd.txt'
+FROM
+	stmall.stmall_good as t1
+WHERE
+	t1.good_id NOT IN (
+		SELECT
+			good_id
+		FROM
+			test.stmall_good
+	)
+
+load data local infile "d:/dd.txt" replace into table stmall_good CHARACTER set utf8

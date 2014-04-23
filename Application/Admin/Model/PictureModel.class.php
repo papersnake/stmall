@@ -13,6 +13,12 @@ class PictureModel extends Model{
 			array('create_time', NOW_TIME, self::MODEL_INSERT),
 	);
 
+	protected function _after_select(&$result,$option){
+		foreach($result as $key=>$value){
+			$result[$key]['last_login_time'] = data('Y-m-d H:i:s',$value['last_login_time']);
+		}
+	}
+
 	public function isFile($file){
 		if(empty($file['md5'])){
 			throw new \Exception('缺少参数：md5');

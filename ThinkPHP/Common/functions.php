@@ -214,8 +214,12 @@ function T($template='',$layer=''){
     $auto   =   C('AUTOLOAD_NAMESPACE');
     if($auto && isset($auto[$extend])){ // 扩展资源
         $baseUrl    =   $auto[$extend].$module.$layer.'/';
-    }elseif(C('VIEW_PATH')){ // 指定视图目录
-        $baseUrl    =   C('VIEW_PATH').$module.'/';
+    }elseif(C('VIEW_PATH')){ 
+        // 改变模块视图目录
+        $baseUrl    =   C('VIEW_PATH');
+    }elseif(defined('TMPL_PATH')){ 
+        // 指定全局视图目录
+        $baseUrl    =   TMPL_PATH.$module;
     }else{
         $baseUrl    =   APP_PATH.$module.$layer.'/';
     }
@@ -231,11 +235,7 @@ function T($template='',$layer=''){
     }elseif(false === strpos($file, '/')){
         $file = CONTROLLER_NAME . $depr . $file;
     }elseif('/' != $depr){
-        if(substr_count($file,'/')>1){
-            $file   =   substr_replace($file,$depr,strrpos($file,'/'),1);
-        }else{
-            $file   =   str_replace('/', $depr, $file);
-        }
+        $file   =   substr_count($file,'/')>1 ? substr_replace($file,$depr,strrpos($file,'/'),1) : str_replace('/', $depr, $file);
     }
     return $baseUrl.($theme?$theme.'/':'').$file.C('TMPL_TEMPLATE_SUFFIX');
 }
@@ -251,9 +251,10 @@ function T($template='',$layer=''){
  * @param string $name 变量的名称 支持指定类型
  * @param mixed $default 不存在的时候默认值
  * @param mixed $filter 参数过滤方法
+ * @param mixed $datas 要获取的额外数据源
  * @return mixed
  */
-function I($name,$default='',$filter=null) {
+function I($name,$default='',$filter=null,$datas=null) {
     if(strpos($name,'.')) { // 指定参数来源
         list($method,$name) =   explode('.',$name,2);
     }else{ // 默认为自动判断
@@ -275,20 +276,30 @@ function I($name,$default='',$filter=null) {
                     $input  =  $_GET;
             }
             break;
+        case 'path'    :   
+            $input  =   array();
+            if(!empty($_SERVER['PATH_INFO'])){
+                $depr   =   C('URL_PATHINFO_DEPR');
+                $input  =   explode($depr,trim($_SERVER['PATH_INFO'],$depr));            
+            }
+            break;
         case 'request' :   $input =& $_REQUEST;   break;
         case 'session' :   $input =& $_SESSION;   break;
         case 'cookie'  :   $input =& $_COOKIE;    break;
         case 'server'  :   $input =& $_SERVER;    break;
         case 'globals' :   $input =& $GLOBALS;    break;
+        case 'data'    :   $input =& $datas;      break;
         default:
             return NULL;
     }
-    if(empty($name)) { // 获取全部变量
+    if(''==$name) { // 获取全部变量
         $data       =   $input;
         array_walk_recursive($data,'filter_exp');
         $filters    =   isset($filter)?$filter:C('DEFAULT_FILTER');
         if($filters) {
-            $filters    =   explode(',',$filters);
+            if(is_string($filters)){
+                $filters    =   explode(',',$filters);
+            }
             foreach($filters as $filter){
                 $data   =   array_map_recursive($filter,$data); // 参数过滤
             }
@@ -298,7 +309,12 @@ function I($name,$default='',$filter=null) {
         is_array($data) && array_walk_recursive($data,'filter_exp');
         $filters    =   isset($filter)?$filter:C('DEFAULT_FILTER');
         if($filters) {
-            $filters    =   explode(',',$filters);
+            if(is_string($filters)){
+                $filters    =   explode(',',$filters);
+            }elseif(is_int($filters)){
+                $filters    =   array($filters);
+            }
+            
             foreach($filters as $filter){
                 if(function_exists($filter)) {
                     $data   =   is_array($data)?array_map_recursive($filter,$data):$filter($data); // 参数过滤
@@ -477,7 +493,7 @@ function vendor($class, $baseUrl = '', $ext='.php') {
 }
 
 /**
- * D函数用于实例化模型类 格式 [资源://][模块/]模型
+ * 实例化模型类 格式 [资源://][模块/]模型
  * @param string $name 资源地址
  * @param string $layer 模型层名称
  * @return Model
@@ -508,7 +524,7 @@ function D($name='',$layer='') {
 }
 
 /**
- * M函数用于实例化一个没有模型文件的Model
+ * 实例化一个没有模型文件的Model
  * @param string $name Model名称 支持指定基础模型 例如 MongoModel:User
  * @param string $tablePrefix 表前缀
  * @param mixed $connection 数据库连接信息
@@ -563,7 +579,33 @@ function parse_res_name($name,$layer,$level=1){
 }
 
 /**
- * A函数用于实例化控制器 格式：[资源://][模块/]控制器
+ * 用于实例化访问控制器
+ * @param string $name 控制器名
+ * @param string $path 控制器命名空间（路径）
+ * @return Controller|false
+ */
+function controller($name,$path=''){
+    $layer  =   C('DEFAULT_C_LAYER');
+    if(!C('APP_USE_NAMESPACE')){
+        $class  =   parse_name($name, 1);
+        import(MODULE_NAME.'/'.$layer.'/'.$class.$layer);
+    }else{
+        $class  =   MODULE_NAME.'\\'.($path?$path.'\\':'').$layer;
+        $array  =   explode('/',$name);
+        foreach($array as $name){
+            $class  .=   '\\'.parse_name($name, 1);
+        }
+        $class .=   $layer;
+    }
+    if(class_exists($class)) {
+        return new $class();
+    }else {
+        return false;
+    }
+}
+
+/**
+ * 实例化多层控制器 格式：[资源://][模块/]控制器
  * @param string $name 资源地址
  * @param string $layer 控制层名称
  * @param integer $level 控制器层次
@@ -575,6 +617,7 @@ function A($name,$layer='',$level='') {
     $level  =   $level? : ($layer == C('DEFAULT_C_LAYER')?C('CONTROLLER_LEVEL'):1);
     if(isset($_action[$name.$layer]))
         return $_action[$name.$layer];
+    
     $class  =   parse_res_name($name,$layer,$level);
     if(class_exists($class)) {
         $action             =   new $class();
@@ -1099,7 +1142,7 @@ function data_to_xml($data, $item='item', $id='id') {
  * @param mixed $value session值
  * @return mixed
  */
-function session($name,$value='') {
+function session($name='',$value='') {
     $prefix   =  C('SESSION_PREFIX');
     if(is_array($name)) { // session初始化 在session_start 之前调用
         if(isset($name['prefix'])) C('SESSION_PREFIX',$name['prefix']);
@@ -1135,7 +1178,10 @@ function session($name,$value='') {
         // 启动session
         if(C('SESSION_AUTO_START'))  session_start();
     }elseif('' === $value){ 
-        if(0===strpos($name,'[')) { // session 操作
+        if(''===$name){
+            // 获取全部的session
+            return $prefix ? $_SESSION[$prefix] : $_SESSION;
+        }elseif(0===strpos($name,'[')) { // session 操作
             if('[pause]'==$name){ // 暂停session
                 session_write_close();
             }elseif('[start]'==$name){ // 启动session
@@ -1201,13 +1247,14 @@ function session($name,$value='') {
  * @param mixed $options cookie参数
  * @return mixed
  */
-function cookie($name, $value='', $option=null) {
+function cookie($name='', $value='', $option=null) {
     // 默认设置
     $config = array(
         'prefix'    =>  C('COOKIE_PREFIX'), // cookie 名称前缀
         'expire'    =>  C('COOKIE_EXPIRE'), // cookie 保存时间
         'path'      =>  C('COOKIE_PATH'), // cookie 保存路径
         'domain'    =>  C('COOKIE_DOMAIN'), // cookie 有效域名
+        'httponly'  =>  C('COOKIE_HTTPONLY'), // httponly设置
     );
     // 参数设置(会覆盖黙认设置)
     if (!is_null($option)) {
@@ -1216,6 +1263,9 @@ function cookie($name, $value='', $option=null) {
         elseif (is_string($option))
             parse_str($option, $option);
         $config     = array_merge($config, array_change_key_case($option));
+    }
+    if(!empty($config['httponly'])){
+        ini_set("session.cookie_httponly", 1);
     }
     // 清除指定前缀的所有cookie
     if (is_null($name)) {
@@ -1232,6 +1282,9 @@ function cookie($name, $value='', $option=null) {
             }
         }
         return;
+    }elseif('' === $name){
+        // 获取全部的cookie
+        return $_COOKIE;
     }
     $name = $config['prefix'] . str_replace('.', '_', $name);
     if ('' === $value) {

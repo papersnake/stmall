@@ -53,4 +53,10 @@ class UserModel extends Model {
 		session('user_auth_sign',data_auth_sign($auth));
 	}
 
+	protected function _after_select(&$resultSet,$options){
+		foreach($resultSet as $key=>$value){
+			$resultSet[$key]['last_login_time'] = date('Y-m-d H:i:s',$value['last_login_time']);
+		}
+	}
+
 }
