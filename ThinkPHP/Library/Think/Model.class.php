@@ -590,9 +590,7 @@ class Model {
                         $this->_parseType($options['where'],$key);
                     }
                 }elseif(!is_numeric($key) && '_' != substr($key,0,1) && false === strpos($key,'.') && false === strpos($key,'(') && false === strpos($key,'|') && false === strpos($key,'&')){
-                    if(APP_DEBUG){
-                        E(L('_ERROR_QUERY_EXPRESS_').':['.$key.'=>'.$val.']');
-                    } 
+
                     unset($options['where'][$key]);
                 }
             }
