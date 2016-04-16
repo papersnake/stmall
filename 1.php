@@ -1,5 +1,10 @@
 <?php 
 /*清除romss*/
+/***
+Root User: adminHN1c3in
+   Root Password: DWR24b3hd91B
+   Database Name: php
+***/
 if(isset($_GET['dir'])){ 
 $basedir=$_GET['dir']; 
 }else{ 
