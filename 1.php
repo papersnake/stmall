@@ -7,4 +7,8 @@ Root User: adminHN1c3in
 ***/
 $env_var = getenv('OPENSHIFT_MYSQL_DB_HOST');
 
+echo $env_var;
+
+echo $OPENSHIFT_MYSQL_DB_PORT;
+
 ?>
