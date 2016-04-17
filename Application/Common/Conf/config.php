@@ -8,13 +8,14 @@ return array(
 	/* 数据库配置 */
 	'DB_TYPE'         => 'mysql', // 数据库类型
 	//'DB_HOST'         => '127.0.0.1', // 服务器地址
-	'DB_HOST'		=>'php',
+	'DB_HOST'		=>'OPENSHIFT_MYSQL_DB_HOST',
 	'DB_NAME'         => 'stmall', // 数据库名
 	//'DB_USER'         => 'root', // 用户名
 	'DB_USER'		=>'adminHN1c3in',
 	//'DB_PWD'          => '',  // 密码
 	'DB_PWD'		=>'DWR24b3hd91B',
-	'DB_PORT'         => '3306', // 端口
+	//'DB_PORT'         => '3306', // 端口
+	'DB_PORT'		=>'OPENSHIFT_MYSQL_DB_PORT',
 	'DB_PREFIX'       => 'stmall_', // 数据库表前缀
 	
 	'SESSION_OPTIONS' =>array(
